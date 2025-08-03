@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@import 'primeicons/primeicons.css';
+@plugin "tailwindcss-primeui";
+
+/*==================================================================*/
+/*==================== CUSTOM THEMES ===============================*/
+/*==================================================================*/
+
+@theme {
+  --color-primary: rgba(79, 209, 197, 1);
+  --color-dark-text: rgba(45, 55, 72, 1);
+  --color-medium-text: rgba(160, 174, 192, 1);
+  --color-text-gray: rgba(113, 128, 150, 1);
+  --color-light-text: rgba(203, 213, 224, 1);
+}
+
+/*==================================================================*/
+/*==================== BASE STYLES =================================*/
+/*==================================================================*/
+@layer base {
+  /* TYPE BUTTTON BASE CURSOR STYLE*/
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: Helvetica, sans-serif;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+}

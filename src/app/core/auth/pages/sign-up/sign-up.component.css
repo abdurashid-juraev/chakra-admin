@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  padding-top: 24px;
+  height: 100%;
+}
+.wrapper {
+  position: relative;
+  min-height: 100%;
+  height: 100%;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    width: calc(100% - 48px);
+    height: 48%;
+    background-image: url('/images/png/BgSignUp.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    border-radius: 15px;
+  }
+}

@@ -1,0 +1,12 @@
+.header-box {
+  border: 1.5px solid rgb(255, 255, 255);
+  border-radius: 15px;
+  box-shadow: 0px 7px 23px 0px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(21px);
+  background: linear-gradient(
+    136.78deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0.8) 108.791%
+  );
+  padding: 17.5px 24px;
+}
