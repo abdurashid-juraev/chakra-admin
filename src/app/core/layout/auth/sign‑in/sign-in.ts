@@ -2,9 +2,9 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { Component, OnInit } from '@angular/core';
-import { Header } from '../../../layout/header/header/header';
+import { Header } from '../../header/header/header';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Footer } from '../../../layout/footer/footer/footer';
+import { Footer } from '../../footer/footer/footer';
 
 @Component({
   selector: 'app-sign-in-page',

@@ -4,6 +4,7 @@ import { KeySvgComponent } from '../../../../shared/components/svg-icons/key-svg
 import { PersonSvgComponent } from '../../../../shared/components/svg-icons/person-svg/person-svg';
 import { PersonCircleSvgComponent } from '../../../../shared/components/svg-icons/person-circle-svg/person-circle-svg';
 import { DownloadBtn } from '../../../../shared/components/download-btn/download-btn';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import { DownloadBtn } from '../../../../shared/components/download-btn/download
     KeySvgComponent,
     PersonSvgComponent,
     PersonCircleSvgComponent,
-    DownloadBtn,
+
+    NgClass,
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
@@ -21,6 +23,13 @@ export class Header {
   @Input() size: string | number = '22';
   @Input() pathClass: string = '#2D3748';
   @Input() color: string = 'text-dark-text';
-  @Input() bgColor: string = '';
   @Input() bgHeader: string = 'header-box';
+  @Input() label: string = 'Free Download';
+  @Input() bgStyle: string = 'bg-gradient-to-l';
+  @Input() fromColor: string = 'from-slate-700';
+  @Input() toColor: string = 'to-gray-900';
+
+  get bgClasses(): string {
+    return `${this.bgStyle} ${this.fromColor} ${this.toColor}`;
+  }
 }

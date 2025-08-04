@@ -1,9 +1,9 @@
 <header class="pt-5">
-  <div class="header-box flex items-center justify-between" [class]="'header-box'">
+  <div class="flex items-center justify-between" [ngClass]="bgHeader">
     <a href="/">
       <article class="flex items-center gap-3">
-        <span
-          ><svg
+        <span>
+          <svg
             [attr.width]="size"
             [attr.height]="size"
             viewBox="0 0 22 22"
@@ -29,48 +29,71 @@
               d="M9.38176 14.6767C9.12514 14.4366 8.72423 14.4435 8.47609 14.6924C8.22795 14.9413 8.22219 15.3422 8.46309 15.5981L10.5407 17.6744C10.6626 17.7966 10.8281 17.8654 11.0008 17.8654C11.1734 17.8654 11.3389 17.7966 11.4608 17.6744L13.5384 15.5981C13.703 15.4338 13.7674 15.1941 13.7074 14.9694C13.6474 14.7446 13.472 14.569 13.2474 14.5087C13.0228 14.4483 12.783 14.5123 12.6184 14.6767L11.0008 16.2957L9.38176 14.6767Z"
               class="fill-current"
               [class]="pathClass"
-            /></svg
-        ></span>
-        <span class="text-dark-text text-sm font-bold uppercase">PURITY UI DASHBOARD</span>
+            />
+          </svg>
+        </span>
+        <span class="text-dark-text text-sm font-bold uppercase" [ngClass]="pathClass"
+          >PURITY UI DASHBOARD</span
+        >
       </article>
     </a>
     <nav>
       <ul class="flex items-center gap-8">
         <li>
-          <a href="#" class="group flex items-center gap-2">
-            <app-cube-svg size="20" pathClass="text-gray-700 group-hover:text-primary" />
+          <a href="#" class="group flex items-center gap-2" [ngClass]="color">
+            <app-cube-svg
+              size="20"
+              pathClass="text-gray-700 group-hover:text-primary"
+              [ngClass]="color"
+            />
             <span
               class="group-hover:text-primary text-dark-text text-sm font-bold uppercase transition-colors duration-300"
+              [ngClass]="color"
             >
               DASHBOARD
             </span>
           </a>
         </li>
         <li>
-          <a href="#" class="group flex items-center gap-1">
-            <app-person-svg size="17" pathClass="text-gray-700 group-hover:text-primary" />
+          <a href="#" class="group flex items-center gap-1" [ngClass]="color">
+            <app-person-svg
+              size="17"
+              pathClass="text-gray-700 group-hover:text-primary"
+              [ngClass]="color"
+            />
             <span
               class="group-hover:text-primary text-dark-text text-sm font-bold uppercase transition-colors duration-300"
+              [ngClass]="color"
             >
               PROFILE
             </span>
           </a>
         </li>
         <li>
-          <a href="#" class="group flex items-center gap-1">
-            <app-person-circle-svg size="21" pathClass="text-gray-700 group-hover:text-primary" />
+          <a href="#" class="group flex items-center gap-1" [ngClass]="color">
+            <app-person-circle-svg
+              size="21"
+              pathClass="text-gray-700 group-hover:text-primary"
+              [ngClass]="color"
+            />
             <span
               class="group-hover:text-primary text-dark-text text-sm font-bold uppercase transition-colors duration-300"
+              [ngClass]="color"
             >
               SIGN UP
             </span>
           </a>
         </li>
         <li>
-          <a href="#" class="group flex items-center gap-1">
-            <app-key-svg size="20" pathClass="text-gray-700 group-hover:text-primary" />
+          <a href="#" class="group flex items-center gap-1" [ngClass]="color">
+            <app-key-svg
+              size="20"
+              pathClass="text-gray-700 group-hover:text-primary"
+              [ngClass]="color"
+            />
             <span
               class="group-hover:text-primary text-dark-text text-sm font-bold uppercase transition-colors duration-300"
+              [ngClass]="color"
             >
               SIGN IN
             </span>
@@ -78,6 +101,15 @@
         </li>
       </ul>
     </nav>
-    <app-download-btn></app-download-btn>
+    <a
+      href="#!"
+      download
+      class="group grid h-9 w-37.5 place-items-center rounded-[34.50px] px-2 text-sm font-bold capitalize transition-all duration-150 active:scale-95"
+      [ngClass]="bgClasses"
+    >
+      <span class="group-hover:text-primary text-white transition-colors duration-150">
+        {{ label }}
+      </span>
+    </a>
   </div>
 </header>

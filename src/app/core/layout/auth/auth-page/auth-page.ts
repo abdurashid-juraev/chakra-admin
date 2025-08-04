@@ -1,5 +1,6 @@
-import { SignUpPage } from './../../../auth/pages/sign-up/sign-up.component';
+import { SignUpPage } from '../sign-up/sign-up.component';
 import { Component } from '@angular/core';
+import { SignInPage } from '../sign\u2011in/sign-in';
 
 @Component({
   selector: 'app-auth-page',

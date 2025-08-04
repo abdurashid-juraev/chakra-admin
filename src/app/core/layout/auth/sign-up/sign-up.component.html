@@ -1,0 +1,125 @@
+<div class="wrapper">
+  <div class="mx-auto flex h-full w-5xl flex-col justify-between px-4 pb-6">
+    <app-header
+      [bgHeader]="'bg-header'"
+      [color]="'menu-link'"
+      [pathClass]="'text-white'"
+      [bgStyle]="'download-btn'"
+    />
+    <section class="flex flex-col items-center justify-center py-12">
+      <h2 class="mb-2.5 text-center text-3xl font-bold text-white">Welcome!</h2>
+      <p class="mb-16 w-80 text-center text-white">
+        Use these awesome forms to login or create new account in your project for free.
+      </p>
+      <form [formGroup]="SignInForm" class="w-[452px] rounded-2xl bg-white px-12 py-11">
+        <h3 class="text-dark-text mb-5 text-center text-lg font-bold">Register with</h3>
+        <div class="flex items-center justify-center gap-5">
+          <a
+            href="#"
+            class="hover:border-primary inline-grid h-[75px] w-[75px] place-items-center rounded-2xl border border-gray-200 duration-150"
+            ><img src="/images/svg/facebook.svg" alt="" /></a
+          ><a
+            href="#"
+            class="hover:border-primary inline-grid h-[75px] w-[75px] place-items-center rounded-2xl border border-gray-200 duration-150"
+            ><img src="/images/svg/apple.svg" alt="" /></a
+          ><a
+            href="#"
+            class="hover:border-primary inline-grid h-[75px] w-[75px] place-items-center rounded-2xl border border-gray-200 duration-150"
+            ><img src="/images/svg/google.svg" alt=""
+          /></a>
+        </div>
+        <div class="my-5 text-center text-lg font-bold text-gray-400">or</div>
+        <div class="mb-9 flex w-full flex-col gap-6">
+          <!-- Email Field -->
+          <div class="flex flex-col gap-1">
+            <label for="name" class="text-dark-text font-medium" pSize="large">Name</label>
+            <input
+              pInputText
+              type="text"
+              id="name"
+              placeholder="Your full name"
+              formControlName="name"
+              [class.ng-invalid]="isInvalid('name')"
+              class="focus:border-primary h-12.5 w-full rounded-2xl border border-gray-200 bg-white px-5 placeholder-gray-400 focus:outline-none"
+            />
+            @if (isInvalid('name')) {
+              @if (SignInForm.get('name')?.errors?.['required']) {
+                <p-message severity="error" size="small" variant="simple">
+                  Name is required.
+                </p-message>
+              }
+            }
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="email" class="text-dark-text font-medium" pSize="large">Email</label>
+            <input
+              pInputText
+              type="email"
+              id="email"
+              placeholder="Your email address"
+              formControlName="email"
+              [class.ng-invalid]="isInvalid('email')"
+              class="focus:border-primary h-12.5 w-full rounded-2xl border border-gray-200 bg-white px-5 placeholder-gray-400 focus:outline-none"
+            />
+
+            @if (isInvalid('email')) {
+              @if (SignInForm.get('email')?.errors?.['required']) {
+                <p-message severity="error" size="small" variant="simple">
+                  Email is required.
+                </p-message>
+              }
+              @if (SignInForm.get('email')?.errors?.['email']) {
+                <p-message severity="error" size="small" variant="simple">
+                  Please enter a valid email.
+                </p-message>
+              }
+            }
+          </div>
+
+          <!-- Password Field -->
+          <div class="flex flex-col gap-1">
+            <label for="password" class="text-dark-text text-sm font-medium">Password</label>
+            <input
+              pInputText
+              type="password"
+              id="password"
+              placeholder="Your password"
+              formControlName="password"
+              [class.ng-invalid]="isInvalid('password')"
+              class="focus:border-primary h-12.5 w-full rounded-2xl border border-gray-200 bg-white px-5 placeholder-gray-400 focus:outline-none"
+            />
+
+            @if (isInvalid('password')) {
+              <p-message severity="error" size="small" variant="simple">
+                Password is required.
+              </p-message>
+            }
+          </div>
+
+          <!-- Remember Me Checkbox -->
+          <div class="flex items-center gap-2.5">
+            <p-toggleswitch formControlName="checked" class="h-6" />
+            <span class="text-dark-text inline-block text-sm">Remember me </span>
+          </div>
+        </div>
+
+        <div>
+          <!-- Sign In Button -->
+          <button
+            type="submit"
+            class="bg-primary mb-5.5 grid h-11 w-full place-items-center rounded-xl font-medium text-white duration-150 hover:bg-teal-500"
+          >
+            <span class="text-sm font-bold text-white">SIGN UP</span>
+          </button>
+
+          <!-- Sign Up Link -->
+          <article class="text-center">
+            <span class="text-sm text-gray-400">Already have an account?</span>
+            <a href="#" class="font-semibold text-teal-400 hover:text-teal-500"> Sign in</a>
+          </article>
+        </div>
+      </form>
+    </section>
+    <app-footer class="pb-6" />
+  </div>
+</div>
