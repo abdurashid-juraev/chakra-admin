@@ -11,7 +11,11 @@
       <p class="mb-16 w-80 text-center text-white">
         Use these awesome forms to login or create new account in your project for free.
       </p>
-      <form [formGroup]="SignInForm" class="w-[452px] rounded-2xl bg-white px-12 py-11">
+      <form
+        [formGroup]="SignInForm"
+        class="w-[452px] rounded-2xl bg-white px-12 py-11 shadow"
+        (ngSubmit)="onSubmit()"
+      >
         <h3 class="text-dark-text mb-5 text-center text-lg font-bold">Register with</h3>
         <div class="flex items-center justify-center gap-5">
           <a
@@ -115,7 +119,13 @@
           <!-- Sign Up Link -->
           <article class="text-center">
             <span class="text-sm text-gray-400">Already have an account?</span>
-            <a href="#" class="font-semibold text-teal-400 hover:text-teal-500"> Sign in</a>
+            <a
+              [routerLink]="['/auth/sign-in']"
+              routerLinkActive="router-link-active"
+              class="font-semibold text-teal-400 hover:text-teal-500"
+            >
+              Sign in</a
+            >
           </article>
         </div>
       </form>

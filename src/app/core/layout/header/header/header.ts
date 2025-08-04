@@ -3,7 +3,7 @@ import { CubeSvgComponent } from '../../../../shared/components/svg-icons/cube-s
 import { KeySvgComponent } from '../../../../shared/components/svg-icons/key-svg/key-svg';
 import { PersonSvgComponent } from '../../../../shared/components/svg-icons/person-svg/person-svg';
 import { PersonCircleSvgComponent } from '../../../../shared/components/svg-icons/person-circle-svg/person-circle-svg';
-import { DownloadBtn } from '../../../../shared/components/download-btn/download-btn';
+
 import { NgClass } from '@angular/common';
 
 @Component({
