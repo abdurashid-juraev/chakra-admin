@@ -30,23 +30,23 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
+    //pathMatch: 'full',
     children: [
       {
         path: 'dashboard',
-        loadComponent: () =>
-          import('./features/dashboard/dashboard.component').then(m => m.default),
+        loadComponent: () => import('./features/dashboard/dashboard.component'),
       },
       {
         path: 'billing',
-        loadComponent: () => import('./features/billing/billing.component').then(m => m.default),
+        loadComponent: () => import('./features/billing/billing.component'),
       },
       {
         path: 'profile',
-        loadComponent: () => import('./features/profile/profile.component').then(m => m.default),
+        loadComponent: () => import('./features/profile/profile.component'),
       },
       {
         path: 'tables',
-        loadComponent: () => import('./features/tables/tables.component').then(m => m.default),
+        loadComponent: () => import('./features/tables/tables.component'),
       },
     ],
   },

@@ -25,6 +25,23 @@
     cursor: pointer;
   }
 }
+@layer utilities {
+  .border-b-gradient-gray::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-image: linear-gradient(
+      to left,
+      rgba(224, 225, 226, 0),
+      rgba(224, 225, 226, 0.16),
+      rgb(224, 225, 226)
+    );
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -7,6 +7,8 @@ import { Footer } from '../../footer/footer/footer';
 import { MessageModule } from 'primeng/message';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 import { Router, RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-sign-up-page',
   imports: [
@@ -17,14 +19,17 @@ import { Router, RouterLink } from '@angular/router';
     ToggleSwitch,
     ButtonModule,
     RouterLink,
+    ToastModule,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
+  providers: [MessageService],
 })
 export default class SignUpPage implements OnInit {
   public SignInForm!: FormGroup;
   private authService = inject(AuthService);
   private router = inject(Router);
+  private messageService = inject(MessageService);
   ngOnInit(): void {
     this.initForm();
   }
@@ -44,12 +49,28 @@ export default class SignUpPage implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.SignInForm.invalid) {
+      this.SignInForm.markAllAsTouched();
+      return;
+    }
+
     const { name, email, password } = this.SignInForm.value;
+
     this.authService.signUp(name, email, password).subscribe({
       next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Muvaffaqiyatli',
+          detail: 'Ro‘yxatdan o‘tildi!',
+        });
         this.router.navigate(['auth/sign-in']);
       },
       error: err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Xatolik',
+          detail: 'Ro‘yxatdan o‘tishda muammo yuz berdi',
+        });
         console.error('Ro‘yxatdan o‘tishda xatolik:', err);
       },
     });
