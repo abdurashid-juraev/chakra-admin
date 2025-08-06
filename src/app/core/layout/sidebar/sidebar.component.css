@@ -1,0 +1,7 @@
+.q-card {
+  min-height: 170px;
+  background-image: url('/images/png/bgCard.png');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
+}
