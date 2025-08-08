@@ -1,7 +1,37 @@
-<main class="flex bg-red-100">
-  <app-sidebar />
-  <div class="w-full bg-amber-50">
-    <div class="bg-blue-50"><app-top-header /></div>
-    <div></div>
-  </div>
+<main class="flex h-full">
+  <section class="h-screen">
+    <app-sidebar />
+  </section>
+  <section class="h-screen w-full overflow-auto">
+    <div class="mb-1"><app-top-header /></div>
+    <div class="overflow-y-auto px-6">
+      <section class="grid grid-cols-4 gap-x-6">
+        <app-info-card
+          [infoTitle]="'Today’s Money'"
+          [infoPrice]="'$53,000'"
+          [infoRange]="'+55'"
+          [imgPath]="'/images/svg/wallet.svg'"
+        />
+        <app-info-card
+          [infoTitle]="'Today’s Users'"
+          [infoPrice]="'2,300'"
+          [infoRange]="'+5'"
+          [imgPath]="'/images/svg/globus.svg'"
+        />
+        <app-info-card
+          [infoTitle]="'New Clients'"
+          [infoPrice]="'+3,052'"
+          [infoRange]="'-14'"
+          [imgPath]="'/images/svg/doc.svg'"
+        />
+        <app-info-card
+          [infoTitle]="'Total Sales'"
+          [infoPrice]="'$173,000'"
+          [infoRange]="'+8'"
+          [imgPath]="'/images/svg/korzinka.svg'"
+        />
+      </section>
+      <router-outlet></router-outlet>
+    </div>
+  </section>
 </main>

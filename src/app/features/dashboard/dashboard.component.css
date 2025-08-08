@@ -1,4 +1,7 @@
 :host {
   display: block;
   background-color: rgb(248, 249, 250);
+  overflow: auto;
+  min-height: 100vh;
+  height: 100%;
 }

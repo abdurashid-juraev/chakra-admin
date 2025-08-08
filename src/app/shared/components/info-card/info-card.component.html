@@ -1,0 +1,16 @@
+<article
+  class="flex cursor-pointer items-center justify-between rounded-2xl bg-white p-4.5 shadow-[0px_3.5px_5.5px_0px_rgba(0,0,0,0.02)]"
+>
+  <div>
+    <h4 class="text-medium-text text-sm font-bold">{{ infoTitle }}</h4>
+    <div class="inline-flex items-baseline gap-1">
+      <span class="text-dark-text text-lg font-bold">{{ infoPrice }} </span
+      ><span class="text-primary text-sm font-bold"> {{ infoRange }} %</span>
+    </div>
+  </div>
+  <div
+    class="bg-primary inline-grid h-[45px] w-[45px] place-items-center rounded-xl shadow-[0px_3.5px_5.5px_0px_rgba(0,0,0,0.02)]"
+  >
+    <img [src]="imgPath" alt="wallet" />
+  </div>
+</article>

@@ -1,3 +1,6 @@
+:host {
+  @apply block h-full min-h-screen overflow-auto;
+}
 .q-card {
   min-height: 170px;
   background-image: url('/images/png/bgCard.png');
