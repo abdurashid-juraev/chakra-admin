@@ -1,0 +1,10 @@
+<li class="w-28">
+  <div class="mb-1.5 flex items-center gap-3">
+    <span class="bg-primary grid h-8 w-8 place-items-center rounded-lg shadow-sm">
+      <img class="h-4 w-4 object-contain object-center" [src]="smCardIcon" alt="" />
+    </span>
+    <span class="text-medium-text text-sm font-bold">{{ smCardTitle }}</span>
+  </div>
+  <div class="text-dark-text mb-1.5 text-lg font-semibold">{{ smCardInfo }}</div>
+  <p-progressbar [value]="value" styleClass="h-1.5 w-full " [showValue]="false" />
+</li>

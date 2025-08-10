@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  width: 100%;
+}
+.projects-card {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header-left .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-left .info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.done-icon {
+  color: #4caf50;
+}
+
+/* Jadval stilini moslash */
+.p-datatable-thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 0.75rem 0.5rem;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.p-datatable .p-datatable-tbody > tr:last-child {
+  border-bottom: none;
+}
+
+.p-datatable .p-datatable-tbody td {
+  padding: 1rem 0.5rem;
+}
+
+/* Kompaniya ustuni */
+.company-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.company-cell img {
+  border-radius: 6px;
+}
+
+.company-cell span {
+  font-weight: 600;
+  color: #374151;
+}
+
+/* A'zolar ustuni */
+.member-avatar {
+  border: 2px solid white;
+}
+
+/* Bajarilish ustuni */
+.completion-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.completion-cell .completion-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.p-progressbar {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+}
+
+.p-progressbar-value {
+  background-color: #4caf50; /* Yashil rang */
+  border-radius: 9999px;
+}

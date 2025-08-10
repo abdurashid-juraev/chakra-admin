@@ -2,36 +2,152 @@
   <section class="h-screen">
     <app-sidebar />
   </section>
-  <section class="h-screen w-full overflow-auto">
-    <div class="mb-1"><app-top-header /></div>
-    <div class="overflow-y-auto px-6">
-      <section class="grid grid-cols-4 gap-x-6">
-        <app-info-card
-          [infoTitle]="'Today’s Money'"
-          [infoPrice]="'$53,000'"
-          [infoRange]="'+55'"
-          [imgPath]="'/images/svg/wallet.svg'"
-        />
-        <app-info-card
-          [infoTitle]="'Today’s Users'"
-          [infoPrice]="'2,300'"
-          [infoRange]="'+5'"
-          [imgPath]="'/images/svg/globus.svg'"
-        />
-        <app-info-card
-          [infoTitle]="'New Clients'"
-          [infoPrice]="'+3,052'"
-          [infoRange]="'-14'"
-          [imgPath]="'/images/svg/doc.svg'"
-        />
-        <app-info-card
-          [infoTitle]="'Total Sales'"
-          [infoPrice]="'$173,000'"
-          [infoRange]="'+8'"
-          [imgPath]="'/images/svg/korzinka.svg'"
-        />
-      </section>
-      <router-outlet></router-outlet>
+  <section class="flex h-screen w-full grow flex-col">
+    <div class="h-full overflow-auto">
+      <app-top-header class="mb-1" />
+      <div class="overflow-y-auto px-6">
+        <section class="mb-6 grid grid-cols-4 gap-6">
+          <app-info-card
+            [infoTitle]="'Today’s Money'"
+            [infoPrice]="'$53,000'"
+            [infoRange]="'+55'"
+            [imgPath]="'/images/svg/wallet.svg'"
+          />
+          <app-info-card
+            [infoTitle]="'Today’s Users'"
+            [infoPrice]="'2,300'"
+            [infoRange]="'+5'"
+            [imgPath]="'/images/svg/globus.svg'"
+          />
+          <app-info-card
+            [infoTitle]="'New Clients'"
+            [infoPrice]="'+3,052'"
+            [infoRange]="'-14'"
+            [imgPath]="'/images/svg/doc.svg'"
+          />
+          <app-info-card
+            [infoTitle]="'Total Sales'"
+            [infoPrice]="'$173,000'"
+            [infoRange]="'+8'"
+            [imgPath]="'/images/svg/korzinka.svg'"
+          />
+        </section>
+        <section class="mb-6 grid grid-cols-12 gap-6">
+          <div class="col-span-7 grid">
+            <app-build-card
+              [buildSubTitle]="'Built by developers'"
+              [buildTitle]="'Purity UI Dashboard'"
+              [buildDescription]="
+                'From colors, cards, typography to complex elements,
+  you will find the full documentation.'
+              "
+              [imgPathBuild]="'/images/png/card-bg.png'"
+            />
+          </div>
+          <div class="col-span-5 grid">
+            <app-bg-image-card
+              [imgCardTitle]="'Work with the Rockets'"
+              [imgCardDescription]="
+                'Wealth creation is an evolutionarily recent positive-sum game.
+  It is all about who take the opportunity first.'
+              "
+            />
+          </div>
+        </section>
+        <section class="mb-6 grid grid-cols-12 gap-6">
+          <div class="col-span-5 grid">
+            <article class="flex flex-col gap-6 rounded-2xl bg-white p-4 shadow-sm">
+              <app-stats-chart-card></app-stats-chart-card>
+              <div class="px-1 pb-3">
+                <h2 class="text-dark-text mb-1 text-lg font-semibold">Active Users</h2>
+                <div class="text-medium-text mb-9 text-sm">
+                  <span class="text-primary font-semibold">(+23)</span> than last week
+                </div>
+                <ul class="flex justify-between">
+                  <app-info-sm-card
+                    [smCardIcon]="'/images/svg/wallet.svg'"
+                    [smCardTitle]="'Users'"
+                    [smCardInfo]="'32,984'"
+                    [value]="60"
+                  />
+                  <app-info-sm-card
+                    [smCardIcon]="'/images/svg/raketa.svg'"
+                    [smCardTitle]="'Clicks'"
+                    [smCardInfo]="'2,42m'"
+                    [value]="85"
+                  />
+                  <app-info-sm-card
+                    [smCardIcon]="'/images/svg/korzinka.svg'"
+                    [smCardTitle]="'Sales'"
+                    [smCardInfo]="'2,400$'"
+                    [value]="40"
+                  />
+                  <app-info-sm-card
+                    [smCardIcon]="'/images/svg/kluch.svg'"
+                    [smCardTitle]="'Items'"
+                    [smCardInfo]="'320'"
+                    [value]="60"
+                  />
+                </ul>
+              </div>
+            </article>
+          </div>
+          <div class="col-span-7 grid">
+            <app-spline-area-chart />
+          </div>
+        </section>
+        <section class="grid grid-cols-12 gap-6">
+          <article class="col-span-8 grid">
+            <app-projects-table></app-projects-table>
+          </article>
+          <div class="col-span-4 grid">
+            <article class="rounded-2xl bg-white px-5 py-7">
+              <hgroup class="mb-7">
+                <h3 class="text-dark-text mb-0.5 text-lg font-bold">Orders overview</h3>
+                <p class="text-medium-text text-sm">
+                  <span class="text-primary font-semibold">+30% </span>this month
+                </p>
+              </hgroup>
+              <app-orders-overview
+                [orderTitle]="'$2400, Design changes'"
+                [orderSubtitle]="'22 DEC 7:20 PM'"
+                ><app-bell-svg icon [width]="19" [height]="19" [className]="'text-primary'"
+              /></app-orders-overview>
+              <app-orders-overview
+                [orderTitle]="'New order #4219423'"
+                [orderSubtitle]="'21 DEC 11:21 PM'"
+                ><img icon class="h-5 w-5 object-contain" src="/images/svg/html.svg" alt=""
+              /></app-orders-overview>
+              <app-orders-overview
+                [orderTitle]="'Server Payments for April'"
+                [orderSubtitle]="'21 DEC 9:28 PM'"
+                ><img
+                  icon
+                  class="h-5 w-5 object-contain"
+                  src="/images/svg/korzinka-blue.svg"
+                  alt=""
+              /></app-orders-overview>
+              <app-orders-overview
+                [orderTitle]="'New card added for order #3210145'"
+                [orderSubtitle]="'20 DEC 3:52 PM'"
+                ><app-billing-svg icon [height]="18" [width]="19" [className]="'text-amber-400'"
+              /></app-orders-overview>
+              <app-orders-overview
+                [orderTitle]="'Unlock packages for Development'"
+                [orderSubtitle]="'19 DEC 11:35 PM'"
+                ><img icon src="/images/svg/jira-logo.svg"
+              /></app-orders-overview>
+              <app-orders-overview
+                [orderTitle]="'New order #9851258'"
+                [orderSubtitle]="'18 DEC 4:41 PM'"
+                ><img icon src="/images/svg/adobexd-logo.svg"
+              /></app-orders-overview>
+            </article>
+          </div>
+        </section>
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer [footer]="'footer'" />
     </div>
   </section>
 </main>

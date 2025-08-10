@@ -35,6 +35,6 @@ import { Component, Input } from '@angular/core';
 export class BellSvgComponent {
   @Input() width: string | number = '12';
   @Input() height: string | number = '12';
-  @Input() color: string = '#718096'; // Default color matching original rgb(113,128,150)
+  @Input() color: string = 'currentColor'; //rgb(113,128,150)
   @Input() className: string = '';
 }

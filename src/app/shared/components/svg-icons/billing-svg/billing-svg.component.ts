@@ -44,6 +44,6 @@ import { Component, Input } from '@angular/core';
 export class BillingSvgComponent {
   @Input() width: string | number = '15';
   @Input() height: string | number = '16';
-  @Input() color: string = '#4FD1C5';
+  @Input() color: string = 'currentColor';
   @Input() className: string = '';
 }

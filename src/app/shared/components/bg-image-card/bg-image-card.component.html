@@ -1,0 +1,14 @@
+<article
+  class="card-work flex h-full w-full flex-col justify-between rounded-xl bg-cover bg-center bg-no-repeat p-5"
+  [style.background-image]="
+    'linear-gradient(0deg, rgba(49,56,96,0.16), rgba(21,25,40,0.88)), url(/images/png/people-image.png)'
+  "
+>
+  <div>
+    <h2 class="mb-1.5 text-lg font-semibold text-white">{{ imgCardTitle }}</h2>
+    <p class="line-clamp-6 w-96 text-sm text-white">{{ imgCardDescription }}</p>
+  </div>
+  <app-read-more
+    linkClass="text-white hover:text-white/80 [&_svg]:text-white [&_svg]:group-hover:text-white/80"
+  />
+</article>
