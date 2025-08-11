@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
 import AuthPage from './core/layout/auth/auth-page/auth-page.component';
 import { authGuard } from './core/auth/auth.guard';
+import DashboardLayoutComponent from './core/layout/dashboard-layout/dashboard-layout.component';
+import BillingComponent from './features/billing/billing.component';
+import DashboardComponent from './features/dashboard/dashboard.component';
+import ProfileComponent from './features/profile/profile.component';
+import TablesComponent from './features/tables/tables.component';
 
 export const routes: Routes = [
   {
@@ -22,24 +27,28 @@ export const routes: Routes = [
     path: '',
     canActivate: [authGuard],
     canActivateChild: [authGuard],
-    loadComponent: () => import('./core/layout/dashboard-layout/dashboard-layout.component'),
+    component: DashboardLayoutComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        loadComponent: () => import('./features/dashboard/dashboard.component'),
+        component: DashboardComponent,
+        data: { breadcrumb: 'Pages / Dashboard', title: 'Dashboard' },
       },
       {
         path: 'billing',
-        loadComponent: () => import('./features/billing/billing.component'),
+        component: BillingComponent,
+        data: { breadcrumb: 'Pages / Billing', title: 'Billing' },
       },
       {
         path: 'profile',
-        loadComponent: () => import('./features/profile/profile.component'),
+        component: ProfileComponent,
+        data: { breadcrumb: 'Pages / Profile', title: 'Profile' },
       },
       {
         path: 'tables',
-        loadComponent: () => import('./features/tables/tables.component'),
+        component: TablesComponent,
+        data: { breadcrumb: 'Pages / Tables', title: 'Tables' },
       },
     ],
   },

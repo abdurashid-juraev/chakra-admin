@@ -1,11 +1,7 @@
 <div class="flex items-center justify-between px-12 py-4">
   <div class="inline-flex flex-col gap-1.5">
-    <p-breadcrumb [model]="items" class="text-medium-text cursor-pointer text-sm">
-      <ng-template #separator>
-        <span class="separator">/</span>
-      </ng-template>
-    </p-breadcrumb>
-    <h2 class="text-dark-text font-semibold">Dashboard</h2>
+    <app-breadcrumb />
+    <h2 class="text-dark-text font-semibold">{{ pageTitle }}</h2>
   </div>
   <div class="flex items-center gap-4.5">
     <div

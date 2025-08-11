@@ -1,8 +1,5 @@
 /* active bo'lgan link uchun stil */
 
-:host ::ng-deep .p-breadcrumb-item {
-  color: var(--color-light-text);
-}
-:host ::ng-deep .p-breadcrumb-item:last-child a {
-  color: black;
+:host {
+  display: block;
 }
