@@ -1,0 +1,17 @@
+<main class="flex h-full">
+  <!-- Sidebar -->
+  <app-sidebar />
+
+  <section class="flex h-screen w-full grow flex-col">
+    <div class="h-full overflow-auto">
+      <app-top-header class="mb-1" />
+
+      <!-- Router Content -->
+      <div class="px-6">
+        <router-outlet></router-outlet>
+      </div>
+
+      <app-footer [footer]="'footer'" />
+    </div>
+  </section>
+</main>

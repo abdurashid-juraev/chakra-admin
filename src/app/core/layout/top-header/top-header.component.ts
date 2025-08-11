@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PersonSvgComponent } from '../../../shared/components/svg-icons/person-svg/person-svg';
@@ -14,6 +14,7 @@ import { BellSvgComponent } from '../../../shared/components/svg-icons/bell-svg/
     PersonSvgComponent,
     SettingSvgComponent,
     BellSvgComponent,
+    RouterLink,
   ],
   templateUrl: './top-header.component.html',
   styleUrl: './top-header.component.css',

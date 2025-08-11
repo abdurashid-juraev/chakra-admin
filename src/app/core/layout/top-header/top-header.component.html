@@ -19,7 +19,10 @@
       />
     </div>
     <div class="flex items-center gap-5">
-      <a href="#" class="group inline-flex items-center gap-1 duration-150"
+      <a
+        [routerLink]="['/sign-in']"
+        routerLinkActive="router-link-active"
+        class="group inline-flex items-center gap-1 duration-150"
         ><app-person-svg [className]="'text-medium-text group-hover:text-primary'" />
         <span class="text-medium-text group-hover:text-primary font-semibold">Sign in</span></a
       >

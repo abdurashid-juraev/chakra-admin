@@ -63,7 +63,7 @@ export default class SignUpPage implements OnInit {
           summary: 'Muvaffaqiyatli',
           detail: 'Ro‘yxatdan o‘tildi!',
         });
-        this.router.navigate(['auth/sign-in']);
+        this.router.navigate(['/sign-in']);
       },
       error: err => {
         this.messageService.add({

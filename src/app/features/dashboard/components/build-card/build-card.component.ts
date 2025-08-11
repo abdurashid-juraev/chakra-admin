@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ReadMoreComponent } from '../read-more/read-more.component';
+import { ReadMoreComponent } from '../../../../shared/components/read-more/read-more.component';
 
 @Component({
   selector: 'app-build-card',

@@ -1,42 +1,30 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './core/auth/auth.guard';
 import AuthPage from './core/layout/auth/auth-page/auth-page.component';
+import { authGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
-  // Auth layout ichida sign-in va sign-up
   {
-    path: 'auth',
+    path: '',
     component: AuthPage,
     children: [
       {
         path: 'sign-in',
-        loadComponent: () =>
-          import('./core/layout/auth/sign-in/sign-in.component').then(m => m.default),
+        loadComponent: () => import('./core/layout/auth/sign-in/sign-in.component'),
       },
       {
         path: 'sign-up',
-        loadComponent: () =>
-          import('./core/layout/auth/sign-up/sign-up.component').then(m => m.default),
+        loadComponent: () => import('./core/layout/auth/sign-up/sign-up.component'),
       },
-      {
-        path: '',
-        redirectTo: 'sign-in',
-        pathMatch: 'full',
-      },
+      { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
     ],
   },
-
-  // AuthGuard bilan himoyalangan sahifalar
   {
     path: '',
-    canActivate: [AuthGuard],
-    //pathMatch: 'full',
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
+    loadComponent: () => import('./core/layout/dashboard-layout/dashboard-layout.component'),
     children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
-      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadComponent: () => import('./features/dashboard/dashboard.component'),
@@ -55,17 +43,5 @@ export const routes: Routes = [
       },
     ],
   },
-
-  // Root path – foydalanuvchiga qarab yo'naltirish
-  {
-    path: '',
-    redirectTo: 'auth/sign-in',
-    pathMatch: 'full',
-  },
-
-  // Not found -> 404
-  {
-    path: '**',
-    redirectTo: 'auth/sign-in',
-  },
+  { path: '**', redirectTo: 'auth/sign-in' },
 ];

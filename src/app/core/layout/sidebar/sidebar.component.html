@@ -1,5 +1,5 @@
-<aside class="w-72 overflow-auto px-5.5 pt-7">
-  <a href="#" class="relative inline-block pb-6">
+<aside class="h-screen w-72 overflow-auto px-5.5 pt-7">
+  <a [routerLink]="['/']" routerLinkActive="router-link-active" class="relative inline-block pb-6">
     <app-logo />
     <span
       class="absolute bottom-0 left-1/2 h-[1px] w-[126%] translate-x-[-50%] bg-gradient-to-r from-transparent via-gray-300 to-transparent"
@@ -9,7 +9,8 @@
     <ul class="pt-5.5 pb-6">
       <li>
         <a
-          href="#"
+          [routerLink]="['/dashboard']"
+          routerLinkActive="router-link-active"
           class="group flex items-center gap-3 rounded-xl px-4 py-3 duration-150 hover:bg-white hover:shadow"
         >
           <app-home-svg
@@ -26,7 +27,8 @@
       </li>
       <li>
         <a
-          href="#"
+          [routerLink]="['/tables']"
+          routerLinkActive="router-link-active"
           class="group flex items-center gap-3 rounded-xl px-4 py-3 duration-150 hover:bg-white hover:shadow"
         >
           <app-tables-svg
@@ -41,7 +43,8 @@
       </li>
       <li>
         <a
-          href="#"
+          [routerLink]="['/billing']"
+          routerLinkActive="router-link-active"
           class="group flex items-center gap-3 rounded-xl px-4 py-3 duration-150 hover:bg-white hover:shadow"
         >
           <app-billing-svg
@@ -56,7 +59,8 @@
       </li>
       <li>
         <a
-          href="#"
+          [routerLink]="['/']"
+          routerLinkActive="router-link-active"
           class="group flex items-center gap-3 rounded-xl px-4 py-3 duration-150 hover:bg-white hover:shadow"
         >
           <app-rtl-svg
@@ -119,6 +123,7 @@
       </li>
     </ul>
   </nav>
+
   <article class="bg-primary q-card w-[230px] rounded-2xl p-4">
     <div class="mb-5.5 inline-grid h-9 w-9 place-items-center rounded-xl bg-white">
       <img src="/images/svg/question-icon.svg" alt="" />

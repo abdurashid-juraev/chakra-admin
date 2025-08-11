@@ -1,5 +1,6 @@
 :host {
-  @apply block h-full min-h-screen overflow-auto;
+  display: block;
+  height: 100vh;
 }
 .q-card {
   min-height: 170px;

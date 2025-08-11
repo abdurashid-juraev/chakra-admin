@@ -1,0 +1,44 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "avatar": "/images/png/avatar9.png",
+      "name": "Esthera Jackson",
+      "email": "esthera@simmmple.com",
+      "function": "Manager",
+      "organization": "Organization",
+      "status": "Online",
+      "employed": "14/06/21"
+    },
+    {
+      "id": 2,
+      "avatar": "/images/png/avatar9.png",
+      "name": "Alexa Liras",
+      "email": "alexa@simmmple.com",
+      "function": "Programmer",
+      "organization": "Developer",
+      "status": "Offline",
+      "employed": "14/06/21"
+    },
+    {
+      "id": 3,
+      "avatar": "/images/png/avatar9.png",
+      "name": "Laurent Michael",
+      "email": "laurent@simmmple.com",
+      "function": "Executive",
+      "organization": "Projects",
+      "status": "Online",
+      "employed": "14/06/21"
+    },
+    {
+      "id": 4,
+      "avatar": "/images/png/avatar9.png",
+      "name": "Freduardo Hill",
+      "email": "freduardo@simmmple.com",
+      "function": "Manager",
+      "organization": "Organization",
+      "status": "Online",
+      "employed": "14/06/21"
+    }
+  ]
+}

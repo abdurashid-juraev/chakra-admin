@@ -1,1 +1,133 @@
-<p>tables works!</p>
+<div class="h-full">
+  <div class="mb-6 rounded-2xl bg-white p-6 shadow-sm">
+    <h2 class="mb-4 text-lg font-bold text-gray-800">Authors Table</h2>
+
+    <p-table [value]="authors">
+      <ng-template pTemplate="header">
+        <tr class="border-b border-gray-200">
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            AUTHOR
+          </th>
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            FUNCTION
+          </th>
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            STATUS
+          </th>
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            EMPLOYED
+          </th>
+          <th class="px-4 py-3"></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-author>
+        <tr class="border-b border-gray-200 last:border-b-0">
+          <td class="px-4 py-4">
+            <div class="flex items-center">
+              <img
+                [src]="author.avatar"
+                alt="Avatar"
+                class="mr-4 h-10 w-10 rounded-full object-cover"
+              />
+              <div class="flex flex-col">
+                <span class="text-sm font-semibold text-gray-800">{{ author.name }}</span>
+                <span class="text-xs text-gray-400">{{ author.email }}</span>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-4">
+            <div class="flex flex-col">
+              <span class="text-sm font-semibold text-gray-800">{{ author.function }}</span>
+              <span class="text-xs text-gray-400">{{ author.organization }}</span>
+            </div>
+          </td>
+          <td class="px-4 py-4">
+            <p-tag
+              [value]="author.status"
+              [class]="
+                author.status === 'Online' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'
+              "
+            >
+            </p-tag>
+          </td>
+          <td class="px-4 py-4 text-sm text-gray-800">{{ author.employed }}</td>
+          <td class="px-4 py-4">
+            <p-button
+              label="Edit"
+              styleClass="p-button-text text-blue-500 font-semibold"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div class="rounded-2xl bg-white p-6 shadow-sm">
+    <div class="mb-4">
+      <h2 class="text-dark-text mb-2 text-xl font-bold">Projects</h2>
+      <div class="flex items-center gap-1 text-sm text-gray-500">
+        <i class="pi pi-check-circle mr-1 text-green-500"></i>
+        <span class="text-medium-text text-sm"
+          ><span class="font-semibold"> 30 done</span> this month</span
+        >
+      </div>
+    </div>
+
+    <p-table [value]="projects">
+      <ng-template pTemplate="header">
+        <tr class="border-b border-gray-200">
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            COMPANIES
+          </th>
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            BUDGET
+          </th>
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            STATUS
+          </th>
+          <th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-gray-400 uppercase">
+            COMPLETION
+          </th>
+          <th class="px-4 py-3"></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-project>
+        <tr class="border-b border-gray-200 last:border-b-0">
+          <td class="px-4 py-4">
+            <div class="flex items-center">
+              <img [src]="project.companyLogo" [alt]="project.companyName" class="mr-4 h-6 w-6" />
+              <span class="text-sm font-semibold text-gray-800">{{ project.companyName }}</span>
+            </div>
+          </td>
+          <td class="px-4 py-4 text-sm text-gray-800">
+            @if (project.budget !== null) {
+              <span>${{ project.budget | number }}</span>
+            } @else {
+              <span>Not set</span>
+            }
+          </td>
+          <td class="px-4 py-4">
+            <p-tag [value]="project.status" [severity]="getStatusSeverity(project.status)"></p-tag>
+          </td>
+          <td class="px-4 py-4">
+            <div class="flex flex-col items-start space-x-2">
+              <span class="text-primary text-sm font-semibold">{{ project.completion }}%</span>
+              <p-progressBar
+                [value]="project.completion"
+                [showValue]="false"
+                class="h-1 w-full overflow-hidden rounded-full"
+              ></p-progressBar>
+            </div>
+          </td>
+          <td class="px-4 py-4">
+            <button>
+              <i class="pi pi-ellipsis-v"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

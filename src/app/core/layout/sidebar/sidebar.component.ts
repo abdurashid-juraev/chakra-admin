@@ -7,6 +7,7 @@ import { RtlSvgComponent } from '../../../shared/components/svg-icons/rtl-svg/rt
 import { DocSvgComponent } from '../../../shared/components/svg-icons/doc-svg/doc-svg.component';
 import { PersonSvgComponent } from '../../../shared/components/svg-icons/person-svg/person-svg';
 import { RaketaSvgComponent } from '../../../shared/components/svg-icons/raketa-svg/raketa-svg.component';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   imports: [
@@ -18,6 +19,7 @@ import { RaketaSvgComponent } from '../../../shared/components/svg-icons/raketa-
     DocSvgComponent,
     PersonSvgComponent,
     RaketaSvgComponent,
+    RouterLink,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',

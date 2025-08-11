@@ -49,11 +49,10 @@ export default class SignInPage implements OnInit {
 
     this.authService.signIn(email, password).subscribe({
       next: () => {
-        console.log('Muvaffaqiyatli login:', this.signInForm.value);
         this.router.navigate(['/dashboard']);
       },
       error: (err: any) => {
-        console.error('Xatolik:', err);
+        console.error('Xatolik.......!', err);
       },
     });
     console.log(this.signInForm.value);
