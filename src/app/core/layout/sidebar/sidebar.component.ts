@@ -4,10 +4,12 @@ import { HomeSvgComponent } from '../../../shared/components/svg-icons/home-svg/
 import { TablesSvgComponent } from '../../../shared/components/svg-icons/tables-svg/tables-svg.component';
 import { BillingSvgComponent } from '../../../shared/components/svg-icons/billing-svg/billing-svg.component';
 import { RtlSvgComponent } from '../../../shared/components/svg-icons/rtl-svg/rtl-svg.component';
-import { DocSvgComponent } from '../../../shared/components/svg-icons/doc-svg/doc-svg.component';
+
 import { PersonSvgComponent } from '../../../shared/components/svg-icons/person-svg/person-svg';
+
+import { RouterLink, RouterModule } from '@angular/router';
+import { DocSvgComponent } from '../../../shared/components/svg-icons/doc-svg/doc-svg.component';
 import { RaketaSvgComponent } from '../../../shared/components/svg-icons/raketa-svg/raketa-svg.component';
-import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   imports: [
@@ -16,10 +18,11 @@ import { RouterLink } from '@angular/router';
     TablesSvgComponent,
     BillingSvgComponent,
     RtlSvgComponent,
+    RouterLink,
+    RouterModule,
     DocSvgComponent,
     PersonSvgComponent,
     RaketaSvgComponent,
-    RouterLink,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',

@@ -9,3 +9,27 @@
   background-position: right bottom;
   background-size: contain;
 }
+
+.router-link-active {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white !important;
+  fill: white !important;
+}
+
+.router-link-active .icon-svg {
+  background-color: var(--color-primary);
+  color: white !important;
+  fill: white !important;
+  transition:
+    all 0.3s,
+    ease-in-out;
+}
+
+:host ::ng-deep .router-link-active .icon-svg path {
+  fill: #fff !important;
+}
+:host ::ng-deep .router-link-active .icon-svg {
+  background-color: var(--color-primary);
+  color: #fff;
+}
