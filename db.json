@@ -1,9 +1,9 @@
 {
   "authors": [
     {
-      "id": 1,
+      "id": "1",
       "avatar": "https://placehold.co/40x40/f1f1f1/333?text=A",
-      "name": "John Doe",
+      "name": "John Test 2",
       "email": "john@example.com",
       "function": "Developer",
       "organization": "Creative Tim",
@@ -11,7 +11,7 @@
       "employed": "23/04/18"
     },
     {
-      "id": 2,
+      "id": "2",
       "avatar": "https://placehold.co/40x40/f1f1f1/333?text=B",
       "name": "Jane Smith",
       "email": "jane@example.com",
@@ -19,6 +19,58 @@
       "organization": "Google",
       "status": "Offline",
       "employed": "12/05/21"
+    },
+    {
+      "id": "32b5",
+      "avatar": "https://placehold.co/40x40/f1f1f1/333?text=N",
+      "name": "test",
+      "email": "test@mail.com",
+      "function": "developer",
+      "organization": "Unicon",
+      "status": "Online",
+      "employed": "12/08/2025"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "companyLogo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+      "companyName": "Vue.js",
+      "budget": 2500,
+      "status": "Working",
+      "completion": 60
+    },
+    {
+      "id": "2",
+      "companyLogo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+      "companyName": "Angular",
+      "budget": 5000,
+      "status": "Canceled",
+      "completion": 10
+    },
+    {
+      "id": "3",
+      "companyLogo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "companyName": "React",
+      "budget": 10000,
+      "status": "Done",
+      "completion": 100
+    }
+  ],
+  "billing": [
+    {
+      "id": 1,
+      "name": "Oliver Liam",
+      "companyName": "Viking Burrito",
+      "email": "oliver@burrito.com",
+      "vatNumber": "FRB1235476"
+    },
+    {
+      "id": 2,
+      "name": "Emma Watson",
+      "companyName": "TechNova Ltd",
+      "email": "emma@technova.com",
+      "vatNumber": "VAT556677"
     }
   ]
 }

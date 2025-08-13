@@ -1,13 +1,15 @@
+// src/app/tables.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag'; // Tag o'rniga TagModule
-import { ButtonModule } from 'primeng/button'; // Button o'rniga ButtonModule
-import { ProgressBarModule } from 'primeng/progressbar'; // ProgressBar o'rniga ProgressBarModule
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
-import { AuthorService } from './service/author.service';
+import { ApiService } from '../../shared/service/api.service';
 
 export interface Author {
   id: number;
@@ -21,6 +23,7 @@ export interface Author {
 }
 
 export interface Project {
+  id: number;
   companyLogo: string;
   companyName: string;
   budget: number | null;
@@ -31,105 +34,78 @@ export interface Project {
 @Component({
   selector: 'app-tables',
   standalone: true,
-  imports: [CommonModule, TableModule, TagModule, ButtonModule, ProgressBarModule, DecimalPipe],
+  imports: [
+    CommonModule,
+    TableModule,
+    TagModule,
+    ButtonModule,
+    ProgressBarModule,
+    DecimalPipe,
+    MenuModule,
+  ],
   templateUrl: './tables.component.html',
   styleUrl: './tables.component.css',
 })
 export default class TablesComponent implements OnInit {
   authors: Author[] = [];
   projects: Project[] = [];
-  menuItems: MenuItem[] = [
-    { label: 'View', icon: 'pi pi-fw pi-eye' },
-    { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-    { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-  ];
+  projectMenuItems: MenuItem[] = [];
 
   constructor(
     private router: Router,
-    private authorService: AuthorService
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
-    // Faqat `json-server` dan ma'lumot yuklash uchun chaqiriladi
-    this.authorService.getAuthors().subscribe({
-      next: data => {
-        this.authors = data;
-        console.log('Authors data from json-server:', this.authors);
-      },
-      error: err => {
-        console.error('Error fetching authors:', err);
-        // Agar xatolik bo'lsa, statik ma'lumotlar bilan to'ldirish
-        this.authors = this.getMockAuthors();
-      },
+    this.fetchAuthors();
+    this.fetchProjects();
+  }
+
+  fetchAuthors(): void {
+    this.apiService.getAll<Author>('authors').subscribe(authors => {
+      this.authors = authors;
     });
-
-    this.projects = this.getProjects();
   }
 
-  // Mavjud statik ma'lumotni alohida funksiyaga ajratish
-  getMockAuthors(): Author[] {
-    return [
+  fetchProjects(): void {
+    this.apiService.getAll<Project>('projects').subscribe(projects => {
+      this.projects = projects;
+    });
+  }
+
+  onEditAuthor(authorId: number): void {
+    this.router.navigate(['/tables/edit', authorId]);
+  }
+
+  onAddAuthor(): void {
+    this.router.navigate(['/tables/add']);
+  }
+
+  onMenuClick(event: MouseEvent, project: Project): void {
+    event.stopPropagation();
+    this.projectMenuItems = [
       {
-        id: 1,
-        avatar: '/images/png/avatar9.png',
-        name: 'Esthera Jackson',
-        email: 'esthera@simmmple.com',
-        function: 'Manager',
-        organization: 'Organization',
-        status: 'Online',
-        employed: '14/06/21',
+        label: 'Edit',
+        icon: 'pi pi-fw pi-pencil',
+        command: () => this.onEditProject(project.id),
       },
       {
-        id: 2,
-        avatar: '/images/png/avatar9.png',
-        name: 'Alexa Liras',
-        email: 'alexa@simmmple.com',
-        function: 'Programmer',
-        organization: 'Developer',
-        status: 'Offline',
-        employed: '14/06/21',
-      },
-      {
-        id: 3,
-        avatar: '/images/png/avatar9.png',
-        name: 'Laurent Michael',
-        email: 'laurent@simmmple.com',
-        function: 'Executive',
-        organization: 'Projects',
-        status: 'Online',
-        employed: '14/06/21',
+        label: 'Delete',
+        icon: 'pi pi-fw pi-trash',
+        command: () => this.onDeleteProject(project.id),
       },
     ];
   }
 
-  getProjects(): Project[] {
-    return [
-      {
-        companyLogo: '/images/svg/atlassian-logo.svg',
-        companyName: 'Chakra Soft UI Version',
-        budget: 14000,
-        status: 'Working',
-        completion: 60,
-      },
-      {
-        companyLogo: '/images/svg/atlassian-logo.svg',
-        companyName: 'Add Progress Track',
-        budget: 3000,
-        status: 'Canceled',
-        completion: 10,
-      },
-    ];
+  onEditProject(projectId: number): void {
+    console.log(`Edit project with ID: ${projectId}`);
   }
 
-  getStatusSeverity(status: string): string {
-    switch (status) {
-      case 'Online':
-        return 'success';
-      case 'Offline':
-        return 'danger';
-      default:
-        return 'info';
-    }
+  onDeleteProject(projectId: number): void {
+    this.apiService.delete('projects', projectId).subscribe(() => {
+      console.log('Project deleted successfully.');
+      this.projects = this.projects.filter(p => p.id !== projectId);
+    });
   }
 
   getStatusProjects(status: string): string {
@@ -142,14 +118,6 @@ export default class TablesComponent implements OnInit {
         return 'danger';
       default:
         return 'secondary';
-    }
-  }
-
-  onEdit(authorId: number | undefined) {
-    if (authorId) {
-      this.router.navigate(['tables/edit', authorId]);
-    } else {
-      console.error('Author ID is undefined.');
     }
   }
 }

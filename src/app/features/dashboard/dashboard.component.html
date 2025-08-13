@@ -40,30 +40,14 @@
           <span class="text-primary font-semibold">(+23)</span> than last week
         </div>
         <ul class="flex justify-between">
-          <app-info-sm-card
-            [smCardIcon]="'/images/svg/wallet.svg'"
-            [smCardTitle]="'Users'"
-            [smCardInfo]="'32,984'"
-            [value]="60"
-          />
-          <app-info-sm-card
-            [smCardIcon]="'/images/svg/raketa.svg'"
-            [smCardTitle]="'Clicks'"
-            [smCardInfo]="'2,42m'"
-            [value]="85"
-          />
-          <app-info-sm-card
-            [smCardIcon]="'/images/svg/korzinka.svg'"
-            [smCardTitle]="'Sales'"
-            [smCardInfo]="'2,400$'"
-            [value]="40"
-          />
-          <app-info-sm-card
-            [smCardIcon]="'/images/svg/kluch.svg'"
-            [smCardTitle]="'Items'"
-            [smCardInfo]="'320'"
-            [value]="60"
-          />
+          @for (card of infoCards; track $index) {
+            <app-info-sm-card
+              [smCardIcon]="card.icon"
+              [smCardTitle]="card.title"
+              [smCardInfo]="card.info"
+              [value]="card.value"
+            />
+          }
         </ul>
       </div>
     </article>
@@ -84,30 +68,32 @@
           <span class="text-primary font-semibold">+30% </span>this month
         </p>
       </hgroup>
-      <app-orders-overview [orderTitle]="'$2400, Design changes'" [orderSubtitle]="'22 DEC 7:20 PM'"
-        ><app-bell-svg icon [width]="19" [height]="19" [className]="'text-primary'"
-      /></app-orders-overview>
-      <app-orders-overview [orderTitle]="'New order #4219423'" [orderSubtitle]="'21 DEC 11:21 PM'"
-        ><img icon class="h-5 w-5 object-contain" src="/images/svg/html.svg" alt=""
-      /></app-orders-overview>
-      <app-orders-overview
-        [orderTitle]="'Server Payments for April'"
-        [orderSubtitle]="'21 DEC 9:28 PM'"
-        ><img icon class="h-5 w-5 object-contain" src="/images/svg/korzinka-blue.svg" alt=""
-      /></app-orders-overview>
-      <app-orders-overview
-        [orderTitle]="'New card added for order #3210145'"
-        [orderSubtitle]="'20 DEC 3:52 PM'"
-        ><app-billing-svg icon [height]="18" [width]="19" [className]="'text-amber-400'"
-      /></app-orders-overview>
-      <app-orders-overview
-        [orderTitle]="'Unlock packages for Development'"
-        [orderSubtitle]="'19 DEC 11:35 PM'"
-        ><img icon src="/images/svg/jira-logo.svg"
-      /></app-orders-overview>
-      <app-orders-overview [orderTitle]="'New order #9851258'" [orderSubtitle]="'18 DEC 4:41 PM'"
-        ><img icon src="/images/svg/adobexd-logo.svg"
-      /></app-orders-overview>
+      @for (order of orders; track $index) {
+        <app-orders-overview [orderTitle]="order.title" [orderSubtitle]="order.subtitle">
+          @if (order.iconType === 'bell') {
+            <app-bell-svg
+              icon
+              [width]="order.iconWidth || 19"
+              [height]="order.iconHeight || 19"
+              [className]="order.iconClass || 'text-primary'"
+            />
+          } @else if (order.iconType === 'billing') {
+            <app-billing-svg
+              icon
+              [height]="order.iconHeight || 18"
+              [width]="order.iconWidth || 19"
+              [className]="order.iconClass || 'text-amber-400'"
+            />
+          } @else {
+            <img
+              icon
+              class="h-5 w-5 object-contain"
+              [src]="getIconPath(order.iconType)"
+              [alt]="order.iconType + ' icon'"
+            />
+          }
+        </app-orders-overview>
+      }
     </article>
   </div>
 </section>

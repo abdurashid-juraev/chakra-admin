@@ -5,10 +5,13 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { Token } from './core/utils/token';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(),
     provideRouter(routes),
     provideAnimationsAsync(),
     providePrimeNG({
@@ -23,5 +26,9 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    {
+      provide: Token.BASE_API,
+      useValue: 'http://localhost:3000',
+    },
   ],
 };

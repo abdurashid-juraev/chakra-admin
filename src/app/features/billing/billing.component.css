@@ -1,4 +1,6 @@
 :host {
   display: block;
-  height: 82vh;
+}
+:host ::ng-deep .p-button-label {
+  font-weight: 700 !important;
 }

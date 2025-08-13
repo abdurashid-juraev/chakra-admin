@@ -1,0 +1,92 @@
+<div class="p-4">
+  <h2 class="mb-6 text-2xl font-bold">{{ isEditMode ? 'Edit' : 'Add' }} Billing Information</h2>
+
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div>
+        <label for="name" class="mb-1 block text-sm font-medium">Full Name</label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          formControlName="name"
+          class="w-full"
+          placeholder="Oliver Liam"
+        />
+      </div>
+
+      <div>
+        <label for="companyName" class="mb-1 block text-sm font-medium">Company Name</label>
+        <input
+          id="companyName"
+          type="text"
+          pInputText
+          formControlName="companyName"
+          class="w-full"
+          placeholder="Viking Burrito"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="mb-1 block text-sm font-medium">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          class="w-full"
+          placeholder="oliver@burrito.com"
+        />
+      </div>
+
+      <div>
+        <label for="vatNumber" class="mb-1 block text-sm font-medium">VAT Number</label>
+        <input
+          id="vatNumber"
+          type="text"
+          pInputText
+          formControlName="vatNumber"
+          class="w-full"
+          placeholder="FRB1235476"
+        />
+      </div>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-3">
+      <p-button label="Cancel" severity="secondary" (onClick)="onCancel()"></p-button>
+      <p-button label="Save" type="submit" [disabled]="!editForm.valid"></p-button>
+    </div>
+  </form>
+</div>
+
+<hr class="my-6" />
+
+<div>
+  <h3 class="mb-4 text-xl font-bold">Billing List</h3>
+  <div *ngFor="let bill of billings" class="mb-3 flex justify-between rounded border p-4">
+    <div>
+      <h4 class="font-bold">{{ bill.name }}</h4>
+      <ul>
+        <li><strong>Company Name:</strong> {{ bill.companyName }}</li>
+        <li><strong>Email:</strong> {{ bill.email }}</li>
+        <li><strong>VAT Number:</strong> {{ bill.vatNumber }}</li>
+      </ul>
+    </div>
+    <div class="flex gap-2">
+      <p-button
+        icon="pi pi-pencil"
+        label="EDIT"
+        styleClass="p-button-text"
+        (onClick)="onEdit(bill)"
+      ></p-button>
+      <p-button
+        icon="pi pi-trash"
+        label="DELETE"
+        styleClass="p-button-danger p-button-text"
+        (onClick)="onDelete(bill.id)"
+      ></p-button>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog></p-confirmDialog>

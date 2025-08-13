@@ -6,6 +6,8 @@ import BillingComponent from './features/billing/billing.component';
 import DashboardComponent from './features/dashboard/dashboard.component';
 import ProfileComponent from './features/profile/profile.component';
 import TablesComponent from './features/tables/tables.component';
+import { EditTableComponent } from './features/tables/edit-table/edit-table.component';
+import { BillingEditComponent } from './features/billing/billing-edit/billing-edit.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +43,11 @@ export const routes: Routes = [
         data: { breadcrumb: 'Pages / Billing', title: 'Billing' },
       },
       {
+        path: 'billing/edit/:id',
+        component: BillingEditComponent,
+        data: { breadcrumb: 'Pages / Tables / Edit Billing', title: 'Edit Billing' },
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
         data: { breadcrumb: 'Pages / Profile', title: 'Profile' },
@@ -49,6 +56,18 @@ export const routes: Routes = [
         path: 'tables',
         component: TablesComponent,
         data: { breadcrumb: 'Pages / Tables', title: 'Tables' },
+      },
+
+      {
+        path: 'tables/edit/:id',
+        component: EditTableComponent,
+        data: { breadcrumb: 'Pages / Tables / Edit Author', title: 'Edit Author' },
+      },
+
+      {
+        path: 'tables/add',
+        component: EditTableComponent,
+        data: { breadcrumb: 'Pages / Tables / Add Author', title: 'Add Author' },
       },
     ],
   },

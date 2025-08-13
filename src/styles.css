@@ -43,6 +43,19 @@
   }
 }
 
+@layer base {
+  :root {
+    --visa-gradient: linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%);
+  }
+}
+
+@layer components {
+  .visa-active {
+    background: var(--visa-gradient);
+    @apply text-white shadow-lg;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

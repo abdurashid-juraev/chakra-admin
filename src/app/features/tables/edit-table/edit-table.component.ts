@@ -8,10 +8,11 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { Author } from '../tables.component';
-import { AuthorService } from '../service/author.service';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-edit-table',
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -24,10 +25,10 @@ import { AuthorService } from '../service/author.service';
   styleUrl: './edit-table.component.css',
   providers: [MessageService],
 })
-export class EditTableComponent {
+export class EditTableComponent implements OnInit {
   authorId: number | null = null;
-  author: Author | undefined;
-  editForm!: FormGroup;
+  editForm: FormGroup;
+  isEditMode: boolean = false;
   statusOptions: { label: string; value: 'Online' | 'Offline' }[] = [
     { label: 'Online', value: 'Online' },
     { label: 'Offline', value: 'Offline' },
@@ -38,55 +39,83 @@ export class EditTableComponent {
     private router: Router,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private authorService: AuthorService // Servisni kiritish
-  ) {}
+    private apiService: ApiService
+  ) {
+    this.editForm = this.fb.group({
+      id: [null],
+      avatar: ['https://placehold.co/40x40/f1f1f1/333?text=N'],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      function: ['', Validators.required],
+      organization: ['', Validators.required],
+      status: ['Online', Validators.required],
+      employed: [new Date().toLocaleDateString('en-GB'), Validators.required],
+    });
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.authorId = Number(params.get('id'));
-      if (this.authorId) {
-        this.authorService.getAuthorById(this.authorId).subscribe(data => {
-          this.author = data;
-          if (this.author) {
-            this.initForm(this.author);
+      const idParam = params.get('id');
+      if (idParam) {
+        this.isEditMode = true;
+        this.authorId = Number(idParam);
+        this.apiService.getById<Author>('authors', this.authorId).subscribe(authorToEdit => {
+          if (authorToEdit) {
+            this.editForm.patchValue(authorToEdit);
+          } else {
+            console.error('Author not found.');
+            this.router.navigate(['/tables']);
           }
         });
+      } else {
+        this.isEditMode = false;
       }
     });
   }
 
-  initForm(author: Author) {
-    this.editForm = this.fb.group({
-      name: [author.name, [Validators.required, Validators.minLength(3)]],
-      email: [author.email, [Validators.required, Validators.email]],
-      function: [author.function, Validators.required],
-      organization: [author.organization, Validators.required],
-      status: [author.status, Validators.required],
-    });
-  }
-
   onSubmit() {
-    if (this.editForm.valid && this.author) {
-      const updatedAuthor: Author = { ...this.author, ...this.editForm.value };
-      this.authorService.updateAuthor(updatedAuthor).subscribe({
-        next: (response: any) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Muvaffaqiyatli',
-            detail: "Muallif ma'lumotlari yangilandi!",
-          });
-          console.log('Updated Author:', response);
-          this.router.navigate(['/tables']);
-        },
-        error: err => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Xatolik',
-            detail: "Ma'lumotlarni yangilashda xatolik yuz berdi.",
-          });
-          console.error('Update Error:', err);
-        },
-      });
+    if (this.editForm.valid) {
+      const formValue = this.editForm.value;
+      if (this.isEditMode) {
+        this.apiService.update<Author>('authors', formValue).subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Muvaffaqiyatli',
+              detail: "Muallif ma'lumotlari yangilandi!",
+            });
+            this.router.navigate(['/tables']);
+          },
+          error: err => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Xatolik',
+              detail: "Ma'lumotlarni yangilashda xatolik yuz berdi.",
+            });
+            console.error('Update Error:', err);
+          },
+        });
+      } else {
+        delete formValue.id;
+        this.apiService.create<Author>('authors', formValue).subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Muvaffaqiyatli',
+              detail: "Yangi muallif qo'shildi!",
+            });
+            this.router.navigate(['/tables']);
+          },
+          error: err => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Xatolik',
+              detail: "Yangi muallif qo'shishda xatolik yuz berdi.",
+            });
+            console.error('Create Error:', err);
+          },
+        });
+      }
     } else {
       this.messageService.add({
         severity: 'error',

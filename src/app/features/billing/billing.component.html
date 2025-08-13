@@ -1,1 +1,188 @@
-<p>billing works!</p>
+<div class="h-full min-h-[calc(100vh-170px)] pt-2.5">
+  <div class="mb-6 grid grid-cols-12 gap-6">
+    <section class="col-span-8 grid">
+      <div class="mb-6 grid grid-cols-2 gap-6">
+        <article
+          class="visa-active flex h-60.5 flex-col justify-between rounded-2xl bg-[url('/images/png/BackgroundCard1.png')] bg-cover bg-no-repeat p-7"
+        >
+          <div class="flex items-center justify-between">
+            <span class="h-9 text-xl font-bold text-white">Purity UI</span>
+            @if (activeCard === 'visa' || (visa && !master.length === null)) {
+              <img class="h-9 w-14 object-contain" src="/images/svg/visa.svg" alt="Visa" />
+            }
+            @if (activeCard === 'master' || (master && !visa.length === null)) {
+              <img
+                class="h-9 w-14 object-contain"
+                src="/images/svg/master-card.svg"
+                alt="MasterCard"
+              />
+            }
+          </div>
+          <div class="flex flex-col gap-3">
+            <div class="text-3xl font-semibold text-white">
+              {{ activeCard === 'visa' ? visa : master }}
+            </div>
+            <div class="flex gap-8">
+              <div>
+                <div class="text-medium-text text-xs uppercase">VALID THRU</div>
+                <div class="text-sm font-bold text-white">05/24</div>
+              </div>
+              <div>
+                <div class="text-medium-text text-xs uppercase">CVV</div>
+                <div class="text-sm font-bold text-white">09X</div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div class="flex gap-6">
+          @for (card of payCards; track card) {
+            <article
+              class="h-full min-h-60.5 w-60.5 flex-1 rounded-2xl bg-white p-6 text-center shadow-sm"
+            >
+              <div
+                class="{{
+                  card.iconBg
+                }} mb-5.5 inline-grid h-16 w-16 place-items-center rounded-xl shadow-sm"
+              >
+                <img [src]="card.icon" alt="" />
+              </div>
+
+              <div class="text-dark-text text-lg">{{ card.title }}</div>
+
+              <div
+                class="text-medium-text relative mb-3 pb-4 text-sm after:absolute after:right-0 after:bottom-0 after:left-[15%] after:h-[1px] after:w-8/12 after:[background:linear-gradient(90deg,rgba(224,225,226,0)_0%,#E0E1E2_49.52%,rgba(224,225,226,0.15625)_99.04%)]"
+              >
+                {{ card.subtitle }}
+              </div>
+
+              <div class="text-dark-text text-lg">{{ card.amount }}</div>
+            </article>
+          }
+        </div>
+      </div>
+      <div class="flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <h3 class="text-dark-text font-bold capitalize">Payment Method</h3>
+          <button
+            type="button"
+            class="visa-active h-9 rounded-xl px-5.5 text-sm leading-0 text-white uppercase transition-colors duration-200 hover:opacity-90"
+          >
+            ADD A NEW CARD
+          </button>
+        </div>
+        <section class="flex items-center gap-6">
+          <div
+            class="border-medium-text focus-within:border-primary flex h-16 w-full items-center gap-2 rounded-2xl border p-4 duration-200"
+            (focusin)="onFocus('master')"
+            (focusout)="onBlur()"
+          >
+            <img src="/images/svg/master-card.svg" alt="MasterCard" />
+            <p-inputmask
+              class="w-full flex-1"
+              styleClass="border-none w-full text-medium-text placeholder:text-light-text text-2xl"
+              mask="9999-9999-9999-XXXX"
+              [(ngModel)]="master"
+              placeholder="____  ____  ____  ____"
+            />
+            <button
+              class="hover:bg-primary/35 hover:text-dark-text grid h-8 w-8 place-items-center rounded-xl duration-150"
+            >
+              <i class="pi pi-pencil"></i>
+            </button>
+          </div>
+          <div
+            class="border-medium-text focus-within:border-primary flex h-16 w-full items-center gap-2 rounded-2xl border p-4 duration-200"
+            (focusin)="onFocus('visa')"
+            (focusout)="onBlur()"
+          >
+            <img src="/images/svg/visa.svg" alt="Visa" />
+            <p-inputmask
+              class="w-full flex-1"
+              styleClass="border-none w-full text-medium-text placeholder:text-light-text text-2xl"
+              mask="9999-9999-9999-XXXX"
+              [(ngModel)]="visa"
+              placeholder="____  ____  ____  ____"
+            />
+            <button
+              class="hover:bg-primary/35 hover:text-dark-text grid h-8 w-8 place-items-center rounded-xl duration-150"
+            >
+              <i class="pi pi-pencil"></i>
+            </button>
+          </div>
+        </section>
+      </div>
+    </section>
+    <div class="col-span-4 grid">
+      <section class="rounded-2xl bg-white p-6 shadow-sm">
+        <div class="mb-7 flex items-center justify-between">
+          <h3 class="text-dark-text text-lg font-bold">Invoices</h3>
+          <button
+            type="button"
+            class="border-primary hover:text-primary inline-flex h-9 items-center justify-center rounded-xl border px-8 font-semibold uppercase shadow-sm duration-150"
+          >
+            <span class="leading-none"> VIEW ALL</span>
+          </button>
+        </div>
+        <ul class="flex flex-col gap-6">
+          @for (invoice of invoices; track invoice.id) {
+            <li class="flex justify-between">
+              <div>
+                <div class="text-dark-text text-sm font-bold">{{ invoice.date }}</div>
+                <div class="text-medium-text text-xs font-bold">{{ invoice.id }}</div>
+              </div>
+              <div class="inline-flex items-center gap-4">
+                <div>{{ invoice.amount }}</div>
+                <p-button
+                  label="PDF"
+                  icon="pi pi-file-pdf"
+                  variant="text"
+                  (onClick)="downloadPdf()"
+                ></p-button>
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+    </div>
+  </div>
+  <div class="grid grid-cols-12 gap-6">
+    <div class="col-span-7 grid">
+      <section class="rounded-2xl bg-white p-6 shadow-sm">
+        <h3 class="text-dark-text mb-6 text-lg font-bold">Billing Information</h3>
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-xl font-bold">Billing Information</h2>
+          <p-button label="Add Billing" icon="pi pi-plus" (onClick)="onAdd()"></p-button>
+        </div>
+        @for (bill of billings; track bill) {
+          <div class="mb-3 flex justify-between rounded border p-4">
+            <div>
+              <h4 class="font-bold">{{ bill.name }}</h4>
+              <ul>
+                <li><strong>Company Name:</strong> {{ bill.companyName }}</li>
+                <li><strong>Email:</strong> {{ bill.email }}</li>
+                <li><strong>VAT Number:</strong> {{ bill.vatNumber }}</li>
+              </ul>
+            </div>
+            <div class="flex gap-2">
+              <p-button
+                icon="pi pi-pencil"
+                label="EDIT"
+                styleClass="p-button-text"
+                (onClick)="onEdit(bill.id)"
+              ></p-button>
+              <p-button
+                icon="pi pi-trash"
+                label="DELETE"
+                styleClass="p-button-danger p-button-text"
+                (onClick)="onDelete(bill.id)"
+              ></p-button>
+            </div>
+          </div>
+        }
+
+        <p-confirmDialog />
+      </section>
+    </div>
+    <section class="col-span-5 grid"></section>
+  </div>
+</div>

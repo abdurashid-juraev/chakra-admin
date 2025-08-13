@@ -1,118 +1,113 @@
-<div class="p-6">
+<div class="h-full min-h-[calc(100vh-170px)] p-6">
   <div class="mx-auto max-w-2xl rounded-xl bg-white p-8 shadow-lg">
-    @if (author) {
-      <h2 class="mb-6 text-2xl font-bold text-gray-800">
-        "{{ author.name }}" ma'lumotlarini tahrirlash
-      </h2>
-      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="space-y-6">
-        <div>
-          <label for="name" class="mb-1 block text-sm font-medium text-gray-700">To'liq ism</label>
-          <input
-            id="name"
-            type="text"
-            pInputText
-            formControlName="name"
-            class="w-full"
-            [ngClass]="{
-              'ng-invalid ng-dirty': editForm.get('name')?.invalid && editForm.get('name')?.touched,
-            }"
-          />
-          @if (editForm.get('name')?.invalid && editForm.get('name')?.touched) {
-            <small class="p-error mt-1 block"
-              >Ism majburiy maydon va kamida 3 belgi bo'lishi kerak.</small
-            >
-          }
-        </div>
-        <div>
-          <label for="email" class="mb-1 block text-sm font-medium text-gray-700"
-            >Elektron pochta</label
+    <h2 class="mb-6 text-2xl font-bold text-gray-800">
+      {{
+        isEditMode
+          ? '"' + editForm.get('name')?.value + '" ma\'lumotlarini tahrirlash'
+          : "Yangi muallif qo'shish"
+      }}
+    </h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div>
+        <label for="name" class="mb-1 block text-sm font-medium text-gray-700">To'liq ism</label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          formControlName="name"
+          class="w-full"
+          [ngClass]="{
+            'ng-invalid ng-dirty': editForm.get('name')?.invalid && editForm.get('name')?.touched,
+          }"
+        />
+        @if (editForm.get('name')?.invalid && editForm.get('name')?.touched) {
+          <small class="p-error mt-1 block"
+            >Ism majburiy maydon va kamida 3 belgi bo'lishi kerak.</small
           >
-          <input
-            id="email"
-            type="email"
-            pInputText
-            formControlName="email"
-            class="w-full"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                editForm.get('email')?.invalid && editForm.get('email')?.touched,
-            }"
-          />
-          @if (editForm.get('email')?.invalid && editForm.get('email')?.touched) {
-            <small class="p-error mt-1 block">Yaroqli elektron pochta manzili kiriting.</small>
-          }
-        </div>
-        <div>
-          <label for="function" class="mb-1 block text-sm font-medium text-gray-700"
-            >Funksiya</label
-          >
-          <input
-            id="function"
-            type="text"
-            pInputText
-            formControlName="function"
-            class="w-full"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                editForm.get('function')?.invalid && editForm.get('function')?.touched,
-            }"
-          />
-          @if (editForm.get('function')?.invalid && editForm.get('function')?.touched) {
-            <small class="p-error mt-1 block">Funksiya majburiy maydon.</small>
-          }
-        </div>
-        <div>
-          <label for="organization" class="mb-1 block text-sm font-medium text-gray-700"
-            >Tashkilot</label
-          >
-          <input
-            id="organization"
-            type="text"
-            pInputText
-            formControlName="organization"
-            class="w-full"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                editForm.get('organization')?.invalid && editForm.get('organization')?.touched,
-            }"
-          />
-          @if (editForm.get('organization')?.invalid && editForm.get('organization')?.touched) {
-            <small class="p-error mt-1 block">Tashkilot majburiy maydon.</small>
-          }
-        </div>
-        <div>
-          <label for="status" class="mb-1 block text-sm font-medium text-gray-700">Holat</label>
-          <p-dropdown
-            id="status"
-            [options]="statusOptions"
-            formControlName="status"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Holatni tanlang"
-            class="w-full"
-          ></p-dropdown>
-        </div>
-        <div class="flex gap-4 pt-4">
-          <p-button
-            label="Saqlash"
-            icon="pi pi-check"
-            type="submit"
-            [disabled]="editForm.invalid"
-          ></p-button>
-          <p-button
-            label="Bekor qilish"
-            icon="pi pi-times"
-            [outlined]="true"
-            severity="secondary"
-            (click)="onCancel()"
-          ></p-button>
-        </div>
-      </form>
-    } @else {
-      <div class="text-center text-gray-500">
-        <p>Muallif ma'lumotlari topilmadi.</p>
+        }
       </div>
-    }
+      <div>
+        <label for="email" class="mb-1 block text-sm font-medium text-gray-700"
+          >Elektron pochta</label
+        >
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          class="w-full"
+          [ngClass]="{
+            'ng-invalid ng-dirty': editForm.get('email')?.invalid && editForm.get('email')?.touched,
+          }"
+        />
+        @if (editForm.get('email')?.invalid && editForm.get('email')?.touched) {
+          <small class="p-error mt-1 block">Yaroqli elektron pochta manzili kiriting.</small>
+        }
+      </div>
+      <div>
+        <label for="function" class="mb-1 block text-sm font-medium text-gray-700">Funksiya</label>
+        <input
+          id="function"
+          type="text"
+          pInputText
+          formControlName="function"
+          class="w-full"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              editForm.get('function')?.invalid && editForm.get('function')?.touched,
+          }"
+        />
+        @if (editForm.get('function')?.invalid && editForm.get('function')?.touched) {
+          <small class="p-error mt-1 block">Funksiya majburiy maydon.</small>
+        }
+      </div>
+      <div>
+        <label for="organization" class="mb-1 block text-sm font-medium text-gray-700"
+          >Tashkilot</label
+        >
+        <input
+          id="organization"
+          type="text"
+          pInputText
+          formControlName="organization"
+          class="w-full"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              editForm.get('organization')?.invalid && editForm.get('organization')?.touched,
+          }"
+        />
+        @if (editForm.get('organization')?.invalid && editForm.get('organization')?.touched) {
+          <small class="p-error mt-1 block">Tashkilot majburiy maydon.</small>
+        }
+      </div>
+      <div>
+        <label for="status" class="mb-1 block text-sm font-medium text-gray-700">Holat</label>
+        <p-dropdown
+          id="status"
+          [options]="statusOptions"
+          formControlName="status"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Holatni tanlang"
+          class="w-full"
+        ></p-dropdown>
+      </div>
+      <div class="flex gap-4 pt-4">
+        <p-button
+          label="Saqlash"
+          icon="pi pi-check"
+          type="submit"
+          [disabled]="editForm.invalid"
+        ></p-button>
+        <p-button
+          label="Bekor qilish"
+          icon="pi pi-times"
+          [outlined]="true"
+          severity="secondary"
+          (click)="onCancel()"
+        ></p-button>
+      </div>
+    </form>
   </div>
 </div>
 <p-toast></p-toast>
