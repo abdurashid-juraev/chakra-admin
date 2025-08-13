@@ -148,19 +148,27 @@
   <div class="grid grid-cols-12 gap-6">
     <div class="col-span-7 grid">
       <section class="rounded-2xl bg-white p-6 shadow-sm">
-        <h3 class="text-dark-text mb-6 text-lg font-bold">Billing Information</h3>
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="text-xl font-bold">Billing Information</h2>
+        <div class="mb-6 flex items-center justify-between">
+          <h3 class="text-dark-text text-lg font-bold">Billing Information</h3>
           <p-button label="Add Billing" icon="pi pi-plus" (onClick)="onAdd()"></p-button>
         </div>
-        @for (bill of billings; track bill) {
-          <div class="mb-3 flex justify-between rounded border p-4">
+        @for (bill of billings; track bill.id) {
+          <div class="mb-6 flex justify-between rounded-xl bg-gray-50 p-6">
             <div>
-              <h4 class="font-bold">{{ bill.name }}</h4>
+              <h4 class="text-dark-text font-bold">{{ bill.name }}</h4>
               <ul>
-                <li><strong>Company Name:</strong> {{ bill.companyName }}</li>
-                <li><strong>Email:</strong> {{ bill.email }}</li>
-                <li><strong>VAT Number:</strong> {{ bill.vatNumber }}</li>
+                <li class="flex items-center gap-2">
+                  <span class="text-medium-text text-sm">Company Name:</span>
+                  <span class="text-dark-text text-sm font-bold">{{ bill.companyName }}</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-medium-text text-sm">Email:</span>
+                  <span class="text-dark-text text-sm font-bold">{{ bill.email }}</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-medium-text text-sm">VAT Number:</span>
+                  <span class="text-dark-text text-sm font-bold">{{ bill.vatNumber }}</span>
+                </li>
               </ul>
             </div>
             <div class="flex gap-2">
@@ -178,11 +186,75 @@
               ></p-button>
             </div>
           </div>
+        } @empty {
+          <p class="text-center text-gray-500">Ma'lumotlar topilmadi.</p>
         }
-
-        <p-confirmDialog />
       </section>
+      <p-confirmDialog />
+      <p-toast />
     </div>
-    <section class="col-span-5 grid"></section>
+    <section class="col-span-5 grid">
+      <div class="w-full rounded-2xl bg-white p-6 shadow-sm">
+        <!-- Header -->
+        <div class="mb-4.5 flex flex-col items-start justify-between md:flex-row md:items-center">
+          <h3 class="text-dark-text text-lg font-bold">Your Transactions</h3>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-calendar text-medium-text text-lg"></i>
+            <div class="text-medium-text text-sm font-bold">23 - 30 March 2020</div>
+          </div>
+        </div>
+
+        <!-- Transactions List -->
+        @for (status of transactionStatuses; track status) {
+          <div class="mb-8">
+            <h4 class="text-medium-text mb-5 text-sm font-semibold">{{ status.toUpperCase() }}</h4>
+            @for (transaction of getTransactionsByStatus(status); track transaction.company) {
+              <div class="mb-6 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <div
+                    class="flex h-10 w-10 items-center justify-center rounded-full"
+                    [ngClass]="{
+                      '!border !border-red-500 text-red-500': transaction.type === 'debit',
+                      'border border-green-500 text-green-500': transaction.type === 'credit',
+                    }"
+                  >
+                    <i
+                      class="pi text-sm"
+                      [ngClass]="{
+                        'pi-arrow-down': transaction.type === 'debit',
+                        'pi-arrow-up': transaction.type === 'credit',
+                      }"
+                    ></i>
+                  </div>
+                  <div>
+                    <h5 class="text-dark-text font-semibold">{{ transaction.company }}</h5>
+                    <p class="text-xs text-gray-500">
+                      {{ transaction.date }}, at {{ transaction.time }}
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  @if (transaction.amount === 'Pending') {
+                    <p-tag value="Pending" severity="warning" class="text-xs font-bold"></p-tag>
+                  } @else {
+                    <p
+                      class="font-bold"
+                      [ngClass]="{
+                        'text-red-500': transaction.type === 'debit',
+                        'text-green-500': transaction.type === 'credit',
+                      }"
+                    >
+                      {{ transaction.type === 'debit' ? '-' : '+' }}${{
+                        transaction.amount | number
+                      }}
+                    </p>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </section>
   </div>
 </div>

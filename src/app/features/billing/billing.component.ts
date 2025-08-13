@@ -6,10 +6,27 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from '../../shared/service/api.service';
 import { ConfirmDialog } from 'primeng/confirmdialog';
-
+import { Toast } from 'primeng/toast';
+import { Tag } from 'primeng/tag';
+import { DecimalPipe, NgClass } from '@angular/common';
+interface Billing {
+  id: number;
+  name: string;
+  companyName: string;
+  email: string;
+  vatNumber: string;
+}
+interface Transaction {
+  company: string;
+  date: string;
+  time: string;
+  amount: number | 'Pending';
+  type: 'debit' | 'credit';
+  status: 'Newest' | 'Yesterday';
+}
 @Component({
   selector: 'app-billing',
-  imports: [InputMask, FormsModule, Button, ConfirmDialog],
+  imports: [InputMask, FormsModule, Button, ConfirmDialog, Toast, Tag, NgClass, DecimalPipe],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.css',
 })
@@ -17,7 +34,6 @@ export default class BillingComponent {
   visa: string = '';
   master: string = '7812 2139 0823 XXXX';
   activeCard: 'visa' | 'master' | null = null;
-  billings: any[] = [];
 
   private apiService = inject(ApiService);
   private router = inject(Router);
@@ -70,15 +86,17 @@ export default class BillingComponent {
     document.body.removeChild(link);
   }
 
+  billings: Billing[] = [];
+
   loadBillings() {
-    this.apiService.getAll<any>('billing').subscribe({
+    this.apiService.getAll<Billing>('billing').subscribe({
       next: res => (this.billings = res),
       error: err => console.error('Error loading billing info', err),
     });
   }
 
   onAdd() {
-    this.router.navigate(['/billing/add']);
+    this.router.navigate(['/billing/add']); // `add` uchun yangi yo'l
   }
 
   onEdit(id: number) {
@@ -87,20 +105,91 @@ export default class BillingComponent {
 
   onDelete(id: number) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete this billing info?',
+      message: 'Ushbu maʼlumotni oʻchirmoqchimisiz?',
+      header: 'Oʻchirishni tasdiqlash',
+      icon: 'pi pi-info-circle',
       accept: () => {
         this.apiService.delete('billing', id).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
-              summary: 'Deleted',
-              detail: 'Billing deleted',
+              summary: 'Oʻchirildi',
+              detail: 'Maʼlumot muvaffaqiyatli oʻchirildi.',
             });
             this.loadBillings();
           },
-          error: err => console.error('Delete error', err),
+          error: err => {
+            console.error('Oʻchirishda xatolik:', err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Xatolik',
+              detail: 'Oʻchirishda xatolik yuz berdi.',
+            });
+          },
         });
       },
     });
+  }
+  //?======================================
+  dateRange: any;
+
+  transactionStatuses = ['newest', 'yesterday'];
+
+  transactions: Transaction[] = [
+    // Newest
+    {
+      company: 'Netflix',
+      date: '27 March 2020',
+      time: '12:30 PM',
+      amount: 2500,
+      type: 'debit',
+      status: 'Newest',
+    },
+    {
+      company: 'Apple',
+      date: '27 March 2020',
+      time: '12:30 PM',
+      amount: 2500,
+      type: 'credit',
+      status: 'Newest',
+    },
+
+    // Yesterday
+    {
+      company: 'Stripe',
+      date: '26 March 2020',
+      time: '13:45 PM',
+      amount: 800,
+      type: 'credit',
+      status: 'Yesterday',
+    },
+    {
+      company: 'HubSpot',
+      date: '26 March 2020',
+      time: '12:30 PM',
+      amount: 1700,
+      type: 'credit',
+      status: 'Yesterday',
+    },
+    {
+      company: 'Webflow',
+      date: '26 March 2020',
+      time: '05:00 AM',
+      amount: 'Pending',
+      type: 'credit',
+      status: 'Yesterday',
+    },
+    {
+      company: 'Microsoft',
+      date: '25 March 2020',
+      time: '16:30 PM',
+      amount: 987,
+      type: 'debit',
+      status: 'Yesterday',
+    },
+  ];
+
+  getTransactionsByStatus(status: string): Transaction[] {
+    return this.transactions.filter(t => t.status.toLowerCase() === status.toLowerCase());
   }
 }

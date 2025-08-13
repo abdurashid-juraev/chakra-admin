@@ -7,7 +7,7 @@ import DashboardComponent from './features/dashboard/dashboard.component';
 import ProfileComponent from './features/profile/profile.component';
 import TablesComponent from './features/tables/tables.component';
 import { EditTableComponent } from './features/tables/edit-table/edit-table.component';
-import { BillingEditComponent } from './features/billing/billing-edit/billing-edit.component';
+import BillingEditComponent from './features/billing/billing-edit/billing-edit.component';
 
 export const routes: Routes = [
   {
@@ -43,9 +43,14 @@ export const routes: Routes = [
         data: { breadcrumb: 'Pages / Billing', title: 'Billing' },
       },
       {
+        path: 'billing/add', // Yangi qo'shish yo'li
+        component: BillingEditComponent,
+        data: { breadcrumb: 'Pages / Billing / Add', title: 'Add Billing' },
+      },
+      {
         path: 'billing/edit/:id',
         component: BillingEditComponent,
-        data: { breadcrumb: 'Pages / Tables / Edit Billing', title: 'Edit Billing' },
+        data: { breadcrumb: 'Pages / Billing / Edit', title: 'Edit Billing' },
       },
       {
         path: 'profile',
@@ -57,13 +62,11 @@ export const routes: Routes = [
         component: TablesComponent,
         data: { breadcrumb: 'Pages / Tables', title: 'Tables' },
       },
-
       {
         path: 'tables/edit/:id',
         component: EditTableComponent,
         data: { breadcrumb: 'Pages / Tables / Edit Author', title: 'Edit Author' },
       },
-
       {
         path: 'tables/add',
         component: EditTableComponent,

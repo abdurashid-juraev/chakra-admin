@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,10 +7,16 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from '../../../shared/service/api.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
+interface Billing {
+  id?: number;
+  name: string;
+  companyName: string;
+  email: string;
+  vatNumber: string;
+}
 @Component({
   selector: 'app-billing-edit',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,16 +28,17 @@ import { ApiService } from '../../../shared/service/api.service';
   templateUrl: './billing-edit.component.html',
   providers: [ConfirmationService, MessageService],
 })
-export class BillingEditComponent implements OnInit {
+export default class BillingEditComponent implements OnInit {
   editForm: FormGroup;
-  billings: any[] = [];
   isEditMode = false;
+
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private apiService: ApiService,
-    private confirmationService: ConfirmationService
+    private apiService: ApiService
   ) {
     this.editForm = this.fb.group({
       id: [null],
@@ -43,37 +50,25 @@ export class BillingEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadBillings();
-  }
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.isEditMode = !!id; // `id` mavjud bo'lsa, `true` bo'ladi
 
-  loadBillings() {
-    this.apiService.getAll<any>('billing').subscribe({
-      next: res => (this.billings = res),
-      error: err => console.error('Error loading billing info', err),
-    });
-  }
-
-  onEdit(billing: any) {
-    this.isEditMode = true;
-    this.editForm.patchValue(billing);
-  }
-
-  onDelete(id: number) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete this billing info?',
-      accept: () => {
-        this.apiService.delete('billing', id).subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Deleted',
-              detail: 'Billing deleted successfully!',
-            });
-            this.loadBillings();
+      if (this.isEditMode && id) {
+        this.apiService.getById<Billing>('billing', Number(id)).subscribe({
+          next: billingData => {
+            this.editForm.patchValue(billingData);
           },
-          error: err => console.error('Delete Error:', err),
+          error: err => {
+            console.error('Billing maʼlumotlarini yuklashda xato:', err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Xato',
+              detail: 'Maʼlumot yuklashda xatolik yuz berdi.',
+            });
+          },
         });
-      },
+      }
     });
   }
 
@@ -82,42 +77,53 @@ export class BillingEditComponent implements OnInit {
       const formValue = this.editForm.value;
 
       if (this.isEditMode) {
-        this.apiService.update<any>('billing', formValue).subscribe({
+        // Tahrirlash rejimida `id` mavjudligi aniq bo'lgani uchun
+        // uni majburiy tipga o'tkazamiz
+        const billingToUpdate = formValue as Billing & { id: number };
+
+        this.apiService.update<Billing & { id: number }>('billing', billingToUpdate).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
-              summary: 'Updated',
-              detail: 'Billing updated successfully!',
+              summary: 'Yangilandi',
+              detail: 'Maʼlumot muvaffaqiyatli yangilandi.',
             });
-            this.resetForm();
-            this.loadBillings();
+            this.router.navigate(['/billing']);
           },
-          error: err => console.error('Update Error:', err),
+          error: err => {
+            console.error('Yangilashda xatolik:', err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Xato',
+              detail: 'Yangilashda xatolik yuz berdi.',
+            });
+          },
         });
       } else {
-        delete formValue.id;
-        this.apiService.create<any>('billing', formValue).subscribe({
+        delete formValue.id; // `id`ni o'chirib tashlash
+        this.apiService.create<Billing>('billing', formValue).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
-              summary: 'Added',
-              detail: 'Billing added successfully!',
+              summary: 'Qoʻshildi',
+              detail: 'Yangi maʼlumot muvaffaqiyatli qoʻshildi.',
             });
-            this.resetForm();
-            this.loadBillings();
+            this.router.navigate(['/billing']);
           },
-          error: err => console.error('Create Error:', err),
+          error: err => {
+            console.error('Qoʻshishda xatolik:', err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Xato',
+              detail: 'Qoʻshishda xatolik yuz berdi.',
+            });
+          },
         });
       }
     }
   }
 
-  resetForm() {
-    this.editForm.reset();
-    this.isEditMode = false;
-  }
-
   onCancel() {
-    this.resetForm();
+    this.router.navigate(['/billing']);
   }
 }
