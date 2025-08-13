@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,6 +8,14 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   protected title = 'chakra-admin';
+  http = inject(HttpClient);
+  users: any[] = [];
+
+  ngOnInit() {
+    this.http.get<any[]>('/api/data/users').subscribe(data => {
+      this.users = data;
+    });
+  }
 }

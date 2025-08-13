@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../shared/service/api.service';
+import { ApiService } from '../../core/service/api.service';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Toast } from 'primeng/toast';
 import { Tag } from 'primeng/tag';

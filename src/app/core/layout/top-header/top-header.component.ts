@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { RouterLink, RouterModule, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { PersonSvgComponent } from '../../../shared/components/svg-icons/person-
 import { SettingSvgComponent } from '../../../shared/components/svg-icons/setting-svg/setting-svg.component';
 import { BellSvgComponent } from '../../../shared/components/svg-icons/bell-svg/bell-svg.component';
 import { AppBreadcrumbComponent } from '../../component/breadcrumb/breadcrumb.component';
+import { LayoutServiceService } from '../layout-service/layout-service.service';
 
 @Component({
   selector: 'app-top-header',
@@ -22,19 +23,19 @@ import { AppBreadcrumbComponent } from '../../component/breadcrumb/breadcrumb.co
   styleUrl: './top-header.component.css',
 })
 export class TopHeaderComponent implements OnInit, OnDestroy {
-  pageTitle: string = '';
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private routerEventsSubscription: Subscription | undefined;
+  private readonly layoutServiceService = inject(LayoutServiceService);
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  public pageTitle: string = '';
 
+  public openSettings(): void {
+    this.layoutServiceService.open();
+  }
   ngOnInit(): void {
-    // 1. Komponent yuklanganda joriy sarlavhani o'rnatish
     this.setPageTitle(this.activatedRoute.root);
 
-    // 2. Marshrut o'zgarishlarini kuzatib borish
     this.routerEventsSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {

@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
-import { ApiService } from '../../shared/service/api.service';
+import { ApiService } from '../../core/service/api.service';
 
 export interface Author {
   id: number;

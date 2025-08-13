@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { Author } from '../tables.component';
-import { ApiService } from '../../../shared/service/api.service';
+import { ApiService } from '../../../core/service/api.service';
 
 @Component({
   selector: 'app-edit-table',

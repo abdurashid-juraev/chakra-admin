@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../../shared/service/api.service';
+import { ApiService } from '../../../core/service/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 interface Billing {
   id?: number;
