@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     { "src": "api/**/*.js", "use": "@vercel/node" },
-    { "src": "dist/my-angular-app/browser/**", "use": "@vercel/static" }
+    { "src": "dist/chakra-admin/browser/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/dist/my-angular-app/browser/index.html" }
+    { "src": "/(.*)", "dest": "/dist/chakra-admin/browser/index.html" }
   ]
 }
