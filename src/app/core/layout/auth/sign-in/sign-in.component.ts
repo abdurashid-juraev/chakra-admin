@@ -7,7 +7,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Header } from '../../header/header/header';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Footer } from '../../footer/footer/footer';
-
+import { PasswordModule } from 'primeng/password';
 @Component({
   selector: 'app-sign-in-page',
   imports: [
@@ -18,6 +18,7 @@ import { Footer } from '../../footer/footer/footer';
     ToggleSwitch,
     Footer,
     RouterLink,
+    PasswordModule,
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',

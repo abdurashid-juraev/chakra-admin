@@ -83,15 +83,19 @@
 
           <div class="flex flex-col gap-1">
             <label for="password" class="text-dark-text text-sm font-medium">Password</label>
-            <input
-              pInputText
-              type="password"
+
+            <p-password
               id="password"
-              placeholder="Your password"
               formControlName="password"
+              [toggleMask]="true"
+              placeholder="123456"
+              [feedback]="false"
+              [styleClass]="'h-12.5 w-full rounded-2xl bg-white'"
+              [inputStyleClass]="
+                'w-full rounded-2xl border border-gray-200 px-5 placeholder-gray-400 focus:border-primary focus:outline-none'
+              "
               [class.ng-invalid]="isInvalid('password')"
-              class="focus:border-primary h-12.5 w-full rounded-2xl border border-gray-200 bg-white px-5 placeholder-gray-400 focus:outline-none"
-            />
+            ></p-password>
 
             @if (isInvalid('password')) {
               <p-message severity="error" size="small" variant="simple">

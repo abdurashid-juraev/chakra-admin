@@ -9,6 +9,7 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { PasswordModule } from 'primeng/password';
 @Component({
   selector: 'app-sign-up-page',
   imports: [
@@ -20,6 +21,7 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     RouterLink,
     ToastModule,
+    PasswordModule,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
