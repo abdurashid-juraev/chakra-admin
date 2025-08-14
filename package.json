@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build --configuration production",
+    "build": "ng build --configuration production --base-href /chakra-admin/",
     "watch": "ng build --watch --configuration development",
     "format": "prettier --write .",
     "json-server": "json-server --watch db.json",
