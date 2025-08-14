@@ -1,5 +1,5 @@
 {
   "version": 2,
-  "builds": [{ "src": "dist/chakra-admin/**", "use": "@vercel/static" }],
-  "routes": [{ "src": "/chakra-admin/(.*)", "dest": "/index.html" }]
+  "builds": [{ "src": "dist/chakra-admin/browser/**", "use": "@vercel/static" }],
+  "routes": [{ "handle": "filesystem" }, { "src": "/chakra-admin/(.*)", "dest": "/index.html" }]
 }
