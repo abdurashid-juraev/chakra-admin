@@ -1,5 +1,5 @@
 // src/app/tables.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -47,14 +47,12 @@ export interface Project {
   styleUrl: './tables.component.css',
 })
 export default class TablesComponent implements OnInit {
-  authors: Author[] = [];
-  projects: Project[] = [];
-  projectMenuItems: MenuItem[] = [];
+  public authors: Author[] = [];
+  public projects: Project[] = [];
+  public projectMenuItems: MenuItem[] = [];
 
-  constructor(
-    private router: Router,
-    private apiService: ApiService
-  ) {}
+  private router = inject(Router);
+  private apiService = inject(ApiService);
 
   ngOnInit(): void {
     this.fetchAuthors();

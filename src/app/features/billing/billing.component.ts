@@ -31,14 +31,17 @@ interface Transaction {
   styleUrl: './billing.component.css',
 })
 export default class BillingComponent {
-  visa: string = '';
-  master: string = '7812 2139 0823 XXXX';
-  activeCard: 'visa' | 'master' | null = null;
-
   private apiService = inject(ApiService);
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
+
+  public visa: string = '';
+  public master: string = '7812 2139 0823 XXXX';
+  public activeCard: 'visa' | 'master' | null = null;
+  public billings: Billing[] = [];
+  public dateRange: any;
+  public transactionStatuses = ['newest', 'yesterday'];
 
   onFocus(cardType: 'visa' | 'master') {
     this.activeCard = cardType;
@@ -49,7 +52,7 @@ export default class BillingComponent {
       this.activeCard = null;
     }
   }
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadBillings();
   }
   public payCards = [
@@ -86,8 +89,6 @@ export default class BillingComponent {
     document.body.removeChild(link);
   }
 
-  billings: Billing[] = [];
-
   loadBillings() {
     this.apiService.getAll<Billing>('billing').subscribe({
       next: res => (this.billings = res),
@@ -96,7 +97,7 @@ export default class BillingComponent {
   }
 
   onAdd() {
-    this.router.navigate(['/billing/add']); // `add` uchun yangi yo'l
+    this.router.navigate(['/billing/add']);
   }
 
   onEdit(id: number) {
@@ -131,9 +132,6 @@ export default class BillingComponent {
     });
   }
   //?======================================
-  dateRange: any;
-
-  transactionStatuses = ['newest', 'yesterday'];
 
   transactions: Transaction[] = [
     // Newest

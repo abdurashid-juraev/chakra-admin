@@ -29,18 +29,23 @@ interface Billing {
   providers: [ConfirmationService, MessageService],
 })
 export default class BillingEditComponent implements OnInit {
-  editForm: FormGroup;
-  isEditMode = false;
+  public editForm!: FormGroup;
+  public isEditMode = false;
 
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService,
-    private apiService: ApiService
-  ) {
-    this.editForm = this.fb.group({
+  private formBuilder = inject(FormBuilder);
+  private messageService = inject(MessageService);
+  private apiService = inject(ApiService);
+
+  ngOnInit() {
+    this.initForm();
+    this.getById();
+  }
+
+  initForm(): void {
+    this.editForm = this.formBuilder.group({
       id: [null],
       name: ['', [Validators.required, Validators.minLength(3)]],
       companyName: ['', Validators.required],
@@ -49,10 +54,10 @@ export default class BillingEditComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  getById(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      this.isEditMode = !!id; // `id` mavjud bo'lsa, `true` bo'ladi
+      this.isEditMode = !!id;
 
       if (this.isEditMode && id) {
         this.apiService.getById<Billing>('billing', Number(id)).subscribe({
@@ -77,8 +82,6 @@ export default class BillingEditComponent implements OnInit {
       const formValue = this.editForm.value;
 
       if (this.isEditMode) {
-        // Tahrirlash rejimida `id` mavjudligi aniq bo'lgani uchun
-        // uni majburiy tipga o'tkazamiz
         const billingToUpdate = formValue as Billing & { id: number };
 
         this.apiService.update<Billing & { id: number }>('billing', billingToUpdate).subscribe({
@@ -100,7 +103,7 @@ export default class BillingEditComponent implements OnInit {
           },
         });
       } else {
-        delete formValue.id; // `id`ni o'chirib tashlash
+        delete formValue.id;
         this.apiService.create<Billing>('billing', formValue).subscribe({
           next: () => {
             this.messageService.add({

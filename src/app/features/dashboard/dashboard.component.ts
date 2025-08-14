@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-
 import { InfoCardComponent } from './components/info-card/info-card.component';
-
 import { BgImageCardComponent } from './components/bg-image-card/bg-image-card.component';
-
 import { ProgressBarModule } from 'primeng/progressbar';
-
 import { ProjectsTableComponent } from './components/tables/projects-table/projects-table.component';
 import { OrdersOverviewComponent } from './components/orders-overview/orders-overview.component';
 import { BellSvgComponent } from '../../shared/components/svg-icons/bell-svg/bell-svg.component';
@@ -47,7 +43,7 @@ interface InfoCard {
   styleUrl: './dashboard.component.css',
 })
 export default class DashboardComponent {
-  cards = [
+  public cards = [
     {
       infoTitle: 'Today’s Money',
       infoPrice: '$53,000',
@@ -73,7 +69,7 @@ export default class DashboardComponent {
       imgPath: '/images/svg/korzinka.svg',
     },
   ];
-  orders: OrderCard[] = [
+  public orders: OrderCard[] = [
     {
       title: '$2400, Design changes',
       subtitle: '22 DEC 7:20 PM',
@@ -121,7 +117,7 @@ export default class DashboardComponent {
     };
     return iconMap[iconType] || '';
   }
-  infoCards: InfoCard[] = [
+  public infoCards: InfoCard[] = [
     {
       icon: '/images/svg/wallet.svg',
       title: 'Users',

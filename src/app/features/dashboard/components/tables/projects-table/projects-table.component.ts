@@ -97,9 +97,9 @@ const PROJECTS: Project[] = [
   styleUrl: './projects-table.component.css',
 })
 export class ProjectsTableComponent implements OnInit {
-  projects: Project[] = [];
+  public projects: Project[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.projects = PROJECTS;
   }
 }

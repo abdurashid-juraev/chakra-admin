@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,22 +26,27 @@ import { ApiService } from '../../../core/service/api.service';
   providers: [MessageService],
 })
 export class EditTableComponent implements OnInit {
-  authorId: number | null = null;
-  editForm: FormGroup;
-  isEditMode: boolean = false;
-  statusOptions: { label: string; value: 'Online' | 'Offline' }[] = [
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private formBuilder = inject(FormBuilder);
+  private messageService = inject(MessageService);
+  private apiService = inject(ApiService);
+
+  public authorId: number | null = null;
+  public editForm!: FormGroup;
+  public isEditMode: boolean = false;
+  public statusOptions: { label: string; value: 'Online' | 'Offline' }[] = [
     { label: 'Online', value: 'Online' },
     { label: 'Offline', value: 'Offline' },
   ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private messageService: MessageService,
-    private apiService: ApiService
-  ) {
-    this.editForm = this.fb.group({
+  ngOnInit() {
+    this.getActiveRoute();
+    this.initForm();
+  }
+
+  initForm(): void {
+    this.editForm = this.formBuilder.group({
       id: [null],
       avatar: ['https://placehold.co/40x40/f1f1f1/333?text=N'],
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -52,9 +57,8 @@ export class EditTableComponent implements OnInit {
       employed: [new Date().toLocaleDateString('en-GB'), Validators.required],
     });
   }
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+  getActiveRoute(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
         this.isEditMode = true;
@@ -73,7 +77,7 @@ export class EditTableComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.editForm.valid) {
       const formValue = this.editForm.value;
       if (this.isEditMode) {
@@ -125,7 +129,7 @@ export class EditTableComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.router.navigate(['/tables']);
   }
 }

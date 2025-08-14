@@ -8,11 +8,14 @@ import { NgApexchartsModule } from 'ng-apexcharts';
   templateUrl: './spline-area-chart.component.html',
   styleUrl: './spline-area-chart.component.css',
 })
-export class SplineAreaChartComponent {
+export class SplineAreaChartComponent implements OnInit {
   public chartOptions: any;
   public series: any[] = [];
 
   ngOnInit(): void {
+    this.initChart();
+  }
+  initChart(): void {
     this.chartOptions = {
       chart: {
         type: 'area',
@@ -91,7 +94,6 @@ export class SplineAreaChartComponent {
         },
       },
     };
-
     this.series = [
       {
         name: '2024 Sales',
