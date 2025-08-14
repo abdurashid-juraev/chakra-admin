@@ -59,7 +59,7 @@
                 { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
               ],
               "outputHashing": "all",
-              "baseHref": "/chakra-admin/"
+              "baseHref": "/"
             },
             "development": {
               "optimization": false,
