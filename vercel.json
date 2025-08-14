@@ -1,19 +1,14 @@
 {
   "version": 2,
   "builds": [
+    { "src": "server.js", "use": "@vercel/node" },
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "outputDirectory": "dist/chakra-admin/browser"
-      }
+      "src": "dist/chakra-admin/browser/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "status": 200,
-      "dest": "/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/(.*)", "dest": "/dist/chakra-admin/browser/index.html" }
   ]
 }
