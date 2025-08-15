@@ -22,6 +22,7 @@
     "@angular/router": "^19.1.0",
     "@primeuix/themes": "^1.2.3",
     "@tailwindcss/postcss": "^4.1.11",
+    "@vercel/kv": "^3.0.0",
     "apexcharts": "^3.54.1",
     "json-server": "^1.0.0-beta.3",
     "ng-apexcharts": "^1.7.4",
