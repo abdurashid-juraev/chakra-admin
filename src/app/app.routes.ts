@@ -43,7 +43,7 @@ export const routes: Routes = [
         data: { breadcrumb: 'Pages / Billing', title: 'Billing' },
       },
       {
-        path: 'billing/add', // Yangi qo'shish yo'li
+        path: 'billing/add',
         component: BillingEditComponent,
         data: { breadcrumb: 'Pages / Billing / Add', title: 'Add Billing' },
       },

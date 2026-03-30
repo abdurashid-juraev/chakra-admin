@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { RouterLink, RouterModule, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
 import { PersonSvgComponent } from '../../../shared/components/svg-icons/person-svg/person-svg';
