@@ -67,7 +67,8 @@
               <ng-template pTemplate="value" let-value>
                 <div
                   [ngStyle]="{ width: value + '%' }"
-                  class="bg-primary h-full rounded-full"
+                  [ngClass]="project.completion >= 60 ? 'bg-amber-400' : 'bg-red-400'"
+                  class="h-full rounded-full"
                 ></div>
               </ng-template>
             </p-progressBar>
