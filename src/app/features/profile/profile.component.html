@@ -34,6 +34,27 @@
       </button>
     </form>
   </article>
+
+  <div class="h-2 w-full rounded-md border border-slate-300">
+    <span
+      class="block h-full"
+      [style.width.%]="progressValue()"
+      [class]="progressValue() > 50 ? 'bg-green-500' : 'bg-red-400'"
+    ></span>
+  </div>
+  <article class="flex items-center gap-1">
+    <input
+      type="text"
+      [(ngModel)]="surveyInput"
+      class="border-primary w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
+    /><button
+      type="button"
+      class="rounded-md bg-blue-500 px-3 py-1 text-2xl text-white duration-150"
+    >
+      +
+    </button>
+  </article>
+  <div>{{ surveyInput() }}</div>
 </section>
 <div class="mx-auto mt-10 max-w-md rounded-2xl bg-white p-6 shadow-xl">
   <h2 class="mb-4 text-2xl font-bold text-gray-800">User Profile</h2>

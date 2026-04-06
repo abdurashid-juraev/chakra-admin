@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, model, signal } from '@angular/core';
 import { User } from './common/models';
 import {
   FormControl,
@@ -17,6 +17,11 @@ import {
 })
 export default class ProfileComponent {
   public status = signal(true);
+  public progressValue = signal<number>(51);
+  public surveyList = signal<[]>([]);
+
+  public surveyInput = signal<string>('');
+
   public user = signal<User>({
     fullName: 'Ali Valiyev',
     role: 'student',
