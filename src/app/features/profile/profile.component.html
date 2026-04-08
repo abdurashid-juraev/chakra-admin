@@ -1,8 +1,8 @@
 <section class="gap=4 grid grid-cols-6 gap-4">
-  <article class="rounded-lg bg-slate-200 p-3">
+  <article class="h-fit rounded-lg bg-slate-200 p-3">
     <div class="mx-auto h-10/12 w-8/12 overflow-hidden rounded-full bg-white">
       <img
-        [src]="user().avatarUrl"
+        [src]="user().fullName"
         class="h-full w-full object-contain object-center"
         alt="avatar"
       />
@@ -12,7 +12,7 @@
       <div>{{ user().fullName }}</div>
     </div>
   </article>
-  <article class="rounded-lg bg-slate-200 p-3">
+  <article class="h-fit rounded-lg bg-slate-200 p-3">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
       <input
         class="border-primary mb-2 w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
@@ -39,28 +39,68 @@
     <span
       class="block h-full"
       [style.width.%]="progressValue()"
-      [class]="progressValue() > 50 ? 'bg-green-500' : 'bg-red-400'"
+      [class]="
+        progressValue() < 30 ? 'bg-red-500' : progressValue() < 70 ? 'bg-amber-300' : 'bg-green-500'
+      "
     ></span>
   </div>
-  <article class="flex items-center gap-1">
-    <input
-      type="text"
-      [(ngModel)]="surveyInput"
-      class="border-primary w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
-    /><button
-      type="button"
-      class="rounded-md bg-blue-500 px-3 py-1 text-2xl text-white duration-150"
-    >
-      +
-    </button>
+  <article class="flex h-fit flex-col gap-5">
+    <div class="flex items-center gap-1">
+      <input
+        type="text"
+        [(ngModel)]="surveyInput"
+        class="border-primary w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
+      /><button
+        (click)="addSurvey()"
+        type="button"
+        class="rounded-md bg-blue-500 px-3 py-1 text-2xl text-white duration-150"
+      >
+        +
+      </button>
+    </div>
+    <ul>
+      @for (item of surveyList(); track $index) {
+        <li class="mb-2 border-b border-b-slate-200 pb-1">
+          {{ item }}
+        </li>
+      }
+    </ul>
   </article>
-  <div>{{ surveyInput() }}</div>
-</section>
-<div class="mx-auto mt-10 max-w-md rounded-2xl bg-white p-6 shadow-xl">
-  <h2 class="mb-4 text-2xl font-bold text-gray-800">User Profile</h2>
+  <div>
+    <input
+      [(ngModel)]="searchTerm"
+      class="border-primary mb-6 w-full rounded-md border p-2 placeholder-slate-400 outline outline-transparent focus:border-transparent focus:outline-blue-400"
+      type="text"
+      placeholder="search..."
+    />
 
-  <!-- Signal qiymatini to'g'ridan-to'g'ri o'qiymiz -->
-  <div class="mb-4">
+    <table class="border-collapse border border-slate-500">
+      <thead>
+        <tr>
+          <th class="border border-slate-600 p-2">Ism Familya</th>
+
+          <th class="border border-slate-600 p-2">Kurslar</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of filteredStudents(); track item.id) {
+          <tr>
+            <td class="border border-slate-700 p-2">{{ item.firstName }} {{ item.lastName }}</td>
+            <th class="border border-slate-600 p-2">{{ item.course }}</th>
+          </tr>
+        }
+      </tbody>
+    </table>
+    @if (filteredStudents().length === 0) {
+      <div class="py-2 text-red-500">Ma'lumot topilmadi...</div>
+    }
+  </div>
+</section>
+<!--<div class="mx-auto mt-10 max-w-md rounded-2xl bg-white p-6 shadow-xl">
+  <h2 class="mb-4 text-2xl font-bold text-gray-800">User Profile</h2>-->
+
+<!-- Signal qiymatini to'g'ridan-to'g'ri o'qiymiz -->
+<!--<div class="mb-4">
     <label class="block text-sm font-medium text-gray-600">Username</label>
     <input
       [value]="username()"
@@ -68,10 +108,10 @@
       class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
       placeholder="Enter username"
     />
-  </div>
+  </div>-->
 
-  <!-- Computed signal yordamida hosilaviy qiymat chiqariladi -->
-  <p class="mb-5 text-gray-600">
+<!-- Computed signal yordamida hosilaviy qiymat chiqariladi -->
+<!--<p class="mb-5 text-gray-600">
     Greeting: <span class="font-semibold text-blue-600">{{ greetingMessage() }}</span>
   </p>
   <button
@@ -80,5 +120,5 @@
     class="rounded-md px-4 py-2 text-white duration-150"
   >
     submit
-  </button>
-</div>
+  </button>-->
+<!--</div>-->
