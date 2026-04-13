@@ -1,12 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, model, signal } from '@angular/core';
-import { User } from './common/models';
+import { Student, User } from './common/models';
 
-export interface Student {
-  id: number;
-  firstName: string;
-  lastName: string;
-  course: string;
-}
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,10 +8,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { BgColorDirective } from './common/test.directiva';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, BgColorDirective],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,10 +20,11 @@ import {
 export default class ProfileComponent {
   public status = signal(true);
   public progressValue = signal<number>(75);
-
   public surveyList = signal<string[]>([]);
   public surveyInput = signal<string>('');
   public searchTerm = signal<string>('');
+  public admin = signal<boolean>(true);
+  public userRole = signal<'admin' | 'student'>('admin');
 
   public user = signal<User>({
     fullName: 'Ali Valiyev',
@@ -36,7 +32,7 @@ export default class ProfileComponent {
     avatarUrl: 'https://i.pravatar.cc/400',
   });
 
-  profileForm = new FormGroup({
+  protected profileForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
   });
@@ -57,7 +53,6 @@ export default class ProfileComponent {
 
     this.surveyInput.set('');
   }
-  // student.interface.ts (yoki komponentning tepasiga yozishingiz mumkin)
 
   // Komponent ichidagi ma'lumotlar
   public studentList = signal<Student[]>([
@@ -66,21 +61,12 @@ export default class ProfileComponent {
     { id: 3, firstName: 'Jasur', lastName: 'Karimov', course: 'Vue.js' },
     { id: 4, firstName: 'Malika', lastName: 'Tohirova', course: 'Angular' },
     { id: 5, firstName: 'Bekzod', lastName: 'Olimov', course: 'Node.js' },
-    { id: 6, firstName: 'Dilnoza', lastName: 'Qodirova', course: 'Python' },
-    { id: 7, firstName: 'Sardor', lastName: 'Nematov', course: 'Java' },
-    { id: 8, firstName: 'Asal', lastName: 'Xalilova', course: 'React' },
-    { id: 9, firstName: 'Bobur', lastName: 'Jalolov', course: 'Angular' },
-    { id: 10, firstName: 'Kamola', lastName: 'Ergasheva', course: 'UI/UX Design' },
   ]);
 
-  filteredStudents = computed(() => {
-    const inputText = this.searchTerm().toLowerCase().trim();
+  public filteredStudents = computed(() => {
+    const inputText = this.searchTerm().toLowerCase();
     const allStudents = this.studentList();
-
-    if (!inputText) {
-      return allStudents;
-    }
-
+    if (!inputText) return allStudents;
     return allStudents.filter(
       student =>
         student.firstName.toLowerCase().includes(inputText) ||
@@ -89,13 +75,17 @@ export default class ProfileComponent {
     );
   });
 
-  //username = signal<string>('Guest Developer');
+  protected treeSurvey = signal<any[][]>([
+    ["Sizga qaysi yo'nalish qiziq?", ['Dasturlash', 'Dizayn']],
+    [
+      ["Qaysi tilni o'rganmoqchisiz?", ['JavaScript', 'Python', 'PHP']],
 
-  //greetingMessage = computed(() => `Hello, ${this.username()}! Welcome to Angular 19.`);
+      ["Qaysi yo'nalishda ishlamoqchisiz?", ['Grafik dizayn', 'UI/UX', '3D Modellashtirish']],
+    ],
+    [
+      ['React-ni bilasizmi?', ['Ha', "Yo'q"]],
 
-  //updateUsername(event: Event): void {
-  //  const inputElement = event.target as HTMLInputElement;
-
-  //  this.username.set(inputElement.value);
-  //}
+      ["Django-ni o'rganganingizmi?", ['Ha', "Yo'q"]],
+    ],
+  ]);
 }

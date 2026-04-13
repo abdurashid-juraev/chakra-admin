@@ -27,7 +27,7 @@
     "@vercel/kv": "^3.0.0",
     "apexcharts": "^3.54.1",
     "json-server": "^1.0.0-beta.3",
-    "ng-apexcharts": "^1.7.4",
+    "ng-apexcharts": "^1.16.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "primeicons": "^7.0.0",
@@ -35,8 +35,7 @@
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.11",
     "tailwindcss-primeui": "^0.6.1",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^19.1.0",
@@ -51,5 +50,12 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "typescript": "~5.8.2"
+  },
+  "overrides": {
+    "ng-apexcharts": {
+      "apexcharts": "$apexcharts",
+      "@angular/core": "$@angular/core",
+      "@angular/common": "$@angular/common"
+    }
   }
 }
