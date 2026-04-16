@@ -1,128 +1,41 @@
-<section class="gap=4 grid grid-cols-6 gap-4">
-  <article class="h-fit rounded-lg bg-slate-200 p-3">
-    <div class="mx-auto h-10/12 w-8/12 overflow-hidden rounded-full bg-white">
-      <img
-        [src]="user().fullName"
-        class="h-full w-full object-contain object-center"
-        alt="avatar"
-      />
-    </div>
-    <div class="bg-primary mt-2 rounded-md py-2 text-center">
-      <div class="text-lg">{{ user().role }}</div>
-      <div>{{ user().fullName }}</div>
-    </div>
-  </article>
-  <article class="h-fit rounded-lg bg-slate-200 p-3">
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<section class="">
+  <div class="mb-6 flex items-center gap-40">
+    <div class="flex gap-2">
       <input
-        class="border-primary mb-2 w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
         type="text"
-        formControlName="firstName"
-      />
-      <input
-        class="border-primary mb-6 w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
-        type="text"
-        formControlName="lastName"
+        class="w-72 rounded-md px-2 py-1 outline outline-blue-400 duration-150 focus:outline-green-400"
+        placeholder="Qidirish..."
       />
       <button
-        type="submit"
-        [disabled]="!profileForm.valid"
-        [class]="profileForm.valid ? 'bg-primary' : 'bg-slate-300'"
-        class="rounded-md px-4 py-2 duration-150"
-      >
-        Submit
-      </button>
-    </form>
-  </article>
-
-  <div class="h-2 w-full rounded-md border border-slate-300">
-    <span
-      class="block h-full"
-      [style.width.%]="progressValue()"
-      [class]="
-        progressValue() < 30 ? 'bg-red-500' : progressValue() < 70 ? 'bg-amber-300' : 'bg-green-500'
-      "
-    ></span>
-  </div>
-  <article class="flex h-fit flex-col gap-5">
-    <div class="flex items-center gap-1">
-      <input
-        type="text"
-        [(ngModel)]="surveyInput"
-        class="border-primary w-full rounded-md border p-2 outline outline-transparent focus:border-transparent focus:outline-blue-400"
-      /><button
-        (click)="addSurvey()"
         type="button"
-        class="rounded-md bg-blue-500 px-3 py-1 text-2xl text-white duration-150"
+        class="grid size-9 place-items-center rounded-full border border-slate-200 duration-150 hover:border-slate-300 hover:bg-slate-200"
       >
-        +
+        <i class="pi pi-refresh"></i>
       </button>
     </div>
-    <ul>
-      @for (item of surveyList(); track $index) {
-        <li class="mb-2 border-b border-b-slate-200 pb-1">
-          {{ item }}
-        </li>
-      }
-    </ul>
-  </article>
-  <div>
-    <input
-      [(ngModel)]="searchTerm"
-      class="border-primary mb-6 w-full rounded-md border p-2 placeholder-slate-400 outline outline-transparent focus:border-transparent focus:outline-blue-400"
-      type="text"
-      placeholder="search..."
-    />
-
-    <table class="border-collapse border border-slate-500">
-      <thead>
-        <tr>
-          <th class="border border-slate-600 p-2">Ism Familya</th>
-
-          <th class="border border-slate-600 p-2">Kurslar</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of filteredStudents(); track item.id) {
-          <tr>
-            <td class="border border-slate-700 p-2">{{ item.firstName }} {{ item.lastName }}</td>
-            <th class="border border-slate-600 p-2">{{ item.course }}</th>
-          </tr>
-        }
-      </tbody>
-    </table>
-    @if (filteredStudents().length === 0) {
-      <div class="py-2 text-red-500">Ma'lumot topilmadi...</div>
-    }
+    <div class="flex gap-3">
+      <button class="rounded-md bg-green-500 px-4 py-2 text-white duration-150 hover:bg-green-600">
+        Muvaffaqiyatli
+      </button>
+      <button class="rounded-md bg-amber-500 px-4 py-2 text-white duration-150 hover:bg-amber-600">
+        Jarayonda
+      </button>
+      <button class="rounded-md bg-red-500 px-4 py-2 text-white duration-150 hover:bg-red-600">
+        Rad etilgan
+      </button>
+    </div>
   </div>
-  <div
-    #box
-    class="grid size-50 cursor-grabbing place-items-center border border-slate-400"
-    (mouseenter)="box.style.backgroundColor = 'red'; box.style.color = 'white'"
-    (mouseleave)="box.style.backgroundColor = 'transparent'; box.style.color = 'inherit'"
-  >
-    Hover over me!
-  </div>
-</section>
-<section class="gap=4 grid grid-cols-5 gap-4">
-  <div>
-    @if (userRole() === 'admin') {
-      <div class="flex gap-3">
-        <button class="rounded-lg bg-green-500 px-4 py-2 text-white">Edit</button>
-        <button class="rounded-lg bg-red-500 px-4 py-2 text-white">O'chirish</button>
-      </div>
-    } @else if (userRole() === 'student') {
-      <button class="rounded-lg bg-blue-500 px-4 py-2 text-white" type="button">O'qish</button>
-    }
-  </div>
-  <ul>
-    @for (item of treeSurvey(); track $index) {
-      <li appBgColor class="mb-4 cursor-pointer border-b border-b-slate-500">
-        @for (list of item; track $index) {
-          <div class="">{{ list }}</div>
-        }
-      </li>
-    }
-    <li></li>
-  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>FIO</th>
+        <th>Holat</th>
+        <th>Baho</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr></tr>
+    </tbody>
+  </table>
 </section>

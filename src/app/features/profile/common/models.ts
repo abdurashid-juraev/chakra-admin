@@ -1,11 +1,6 @@
-export interface User {
-  fullName: string;
-  role: string;
-  avatarUrl: string;
-}
-export interface Student {
+export interface IStudents {
   id: number;
-  firstName: string;
-  lastName: string;
-  course: string;
+  fullName: string;
+  status: 'success' | 'failed' | 'process';
+  grade: number;
 }

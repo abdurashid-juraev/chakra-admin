@@ -79,5 +79,17 @@
       "email": "emma@technova.com",
       "vatNumber": "VAT556677"
     }
+  ],
+  "students": [
+    { "id": 1, "name": "Abdurashid Karimov", "status": "success", "grade": 95 },
+    { "id": 2, "name": "Malika Ahmadova", "status": "process", "grade": null },
+    { "id": 3, "name": "Jasur Orifov", "status": "failed", "grade": 42 },
+    { "id": 4, "name": "Zuhra Soliyeva", "status": "success", "grade": 88 },
+    { "id": 5, "name": "Azizbek Tursunov", "status": "failed", "grade": 55 },
+    { "id": 6, "name": "Madina G'aniyeva", "status": "process", "grade": null },
+    { "id": 7, "name": "Sardor Rahimov", "status": "success", "grade": 91 },
+    { "id": 8, "name": "Laylo Akromova", "status": "failed", "grade": 30 },
+    { "id": 9, "name": "Temur Aliyev", "status": "process", "grade": null },
+    { "id": 10, "name": "Nigora Hasanova", "status": "success", "grade": 79 }
   ]
 }
