@@ -1,0 +1,4 @@
+@reference "tailwindcss";
+table {
+  @apply border border-slate-400 p-2;
+}

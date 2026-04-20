@@ -1,7 +1,20 @@
 <table>
   <thead>
-    <tr>
-      <th></th>
+    <tr class="bg-slate-200">
+      <ng-container *ngTemplateOutlet="theadTemplate()"></ng-container>
     </tr>
   </thead>
+  <tbody>
+    @for (item of data(); track item) {
+      <tr [class.bg-slate-200]="$odd">
+        <ng-container
+          [ngTemplateOutlet]="rowTemplate()"
+          [ngTemplateOutletContext]="{
+            $implicit: item,
+            index: $index,
+          }"
+        ></ng-container>
+      </tr>
+    }
+  </tbody>
 </table>

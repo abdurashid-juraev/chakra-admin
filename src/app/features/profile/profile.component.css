@@ -1,8 +1,9 @@
+@reference "tailwindcss";
 :host {
   display: block;
   width: 100%;
 }
-.table * {
-  border: 1px solid lightgray;
-  padding: 5px 10px;
+th,
+td {
+  @apply border border-slate-400 p-2;
 }

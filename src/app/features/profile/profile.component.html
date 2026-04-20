@@ -38,4 +38,39 @@
       <tr></tr>
     </tbody>
   </table>
+  <ng-template #myTemplate>
+    <div class="mt-5 bg-red-300 p-10">
+      <div>ng template</div>
+    </div>
+  </ng-template>
+  <div class="mt-10 bg-amber-300 p-4">
+    <ng-container *ngTemplateOutlet="myTemplate"></ng-container>
+  </div>
+  @if (show()) {
+    <div class="mt-10 mb-10 bg-amber-300 p-4">
+      <div class="mt-5 bg-red-300 p-10">
+        <div>if signal</div>
+      </div>
+    </div>
+  }
+
+  <app-table [data]="students()" [rowTemplate]="row" [theadTemplate]="thead">
+    <ng-template #thead>
+      <th>ID</th>
+      <th>Fullname</th>
+      <th>grade</th>
+      <th>status</th>
+    </ng-template>
+    <ng-template #row let-user let-i="index">
+      <td>{{ user.id }}</td>
+      <td>{{ user.fullName }}</td>
+      <td>{{ user.status }}</td>
+      <td
+        class="text-center text-white"
+        [class]="user.grade < 50 ? 'bg-red-500' : user.grade < 70 ? 'bg-amber-400' : 'bg-green-500'"
+      >
+        {{ user.grade }}
+      </td>
+    </ng-template>
+  </app-table>
 </section>
