@@ -1,12 +1,10 @@
 <table>
   <thead>
-    <tr class="bg-slate-200">
-      <ng-container *ngTemplateOutlet="theadTemplate()"></ng-container>
-    </tr>
+    <ng-container [ngTemplateOutlet]="theadTemplate()"></ng-container>
   </thead>
   <tbody>
     @for (item of data(); track item) {
-      <tr [class.bg-slate-200]="$odd">
+      <tr>
         <ng-container
           [ngTemplateOutlet]="rowTemplate()"
           [ngTemplateOutletContext]="{
