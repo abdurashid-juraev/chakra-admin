@@ -4,3 +4,8 @@ export interface IStudents {
   status: 'success' | 'failed' | 'process';
   grade: number;
 }
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}

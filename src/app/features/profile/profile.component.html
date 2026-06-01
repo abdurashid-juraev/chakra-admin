@@ -1,76 +1,32 @@
-<section class="">
-  <div class="mb-6 flex items-center gap-40">
-    <div class="flex gap-2">
-      <input
-        type="text"
-        class="w-72 rounded-md px-2 py-1 outline outline-blue-400 duration-150 focus:outline-green-400"
-        placeholder="Qidirish..."
-      />
-      <button
-        type="button"
-        class="grid size-9 place-items-center rounded-full border border-slate-200 duration-150 hover:border-slate-300 hover:bg-slate-200"
-      >
-        <i class="pi pi-refresh"></i>
-      </button>
-    </div>
-    <div class="flex gap-3">
-      <button class="rounded-md bg-green-500 px-4 py-2 text-white duration-150 hover:bg-green-600">
-        Muvaffaqiyatli
-      </button>
-      <button class="rounded-md bg-amber-500 px-4 py-2 text-white duration-150 hover:bg-amber-600">
-        Jarayonda
-      </button>
-      <button class="rounded-md bg-red-500 px-4 py-2 text-white duration-150 hover:bg-red-600">
-        Rad etilgan
-      </button>
-    </div>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>FIO</th>
-        <th>Holat</th>
-        <th>Baho</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr></tr>
-    </tbody>
-  </table>
-  <ng-template #myTemplate>
-    <div class="mt-5 p-10">
-      <div>ng template</div>
-    </div>
-  </ng-template>
-  <div class="mt-10 p-4">
-    <ng-container *ngTemplateOutlet="myTemplate"></ng-container>
-  </div>
-  @if (show()) {
-    <div class="mt-10 mb-10 p-4">
-      <div class="mt-5 p-10">
-        <div>if signal</div>
-      </div>
-    </div>
-  }
-
-  <app-table [data]="students()" [rowTemplate]="row" [theadTemplate]="thead">
-    <ng-template #thead>
-      <th>ID</th>
-      <th>Fullname</th>
-      <th>status</th>
-      <th>grade</th>
-    </ng-template>
-    <ng-template #row let-user let-i="index">
-      <td>{{ user.id }}</td>
-      <td>{{ user.fullName }}</td>
-      <td>{{ user.status }}</td>
-      <td
-        class="text-center text-white"
-        [class]="user.grade < 50 ? 'bg-red-500' : user.grade < 70 ? 'bg-amber-400' : 'bg-green-500'"
-      >
-        {{ user.grade }}
-      </td>
-    </ng-template>
-  </app-table>
+<section class="mx-auto w-3/6">
+  <form class="flex justify-center gap-3">
+    <p-iconField class="w-full">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input type="text" [formControl]="todo" pInputText placeholder="Enter..." class="w-full" />
+    </p-iconField>
+    <p-button styleClass="px-4" (onClick)="handleSave()">+</p-button>
+  </form>
+  <ul>
+    @for (user of users(); track user.id) {
+      <li class="mt-3 flex items-center justify-between border-b border-b-blue-400 pb-1">
+        <span>{{ user.name }}</span>
+        <div class="flex gap-1">
+          <p-button
+            icon="pi pi-pencil"
+            severity="success"
+            [rounded]="true"
+            (onClick)="editBnt(user.id)"
+          />
+          <p-button
+            icon="pi pi-times"
+            severity="danger"
+            [rounded]="true"
+            (onClick)="deleteBtn(user.id)"
+          />
+        </div>
+      </li>
+    } @empty {
+      <li class="py-10 text-center">No data</li>
+    }
+  </ul>
 </section>

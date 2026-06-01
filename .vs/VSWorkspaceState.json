@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\dist",
+    "\\environments",
+    "\\public",
+    "\\public\\images",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\features",
+    "\\src\\app\\features\\dashboard"
+  ],
+  "PreviewInSolutionExplorer": false
+}

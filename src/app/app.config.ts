@@ -10,13 +10,13 @@ import { Token } from './core/utils/token';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-
     provideExperimentalZonelessChangeDetection(),
 
     provideHttpClient(),
     provideRouter(routes),
     provideAnimationsAsync(),
     providePrimeNG({
+      ripple: true,
       theme: {
         preset: Aura,
         options: {
@@ -33,4 +33,4 @@ export const appConfig: ApplicationConfig = {
       useValue: 'http://localhost:3000',
     },
   ],
-}
+};
