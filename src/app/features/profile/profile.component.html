@@ -31,7 +31,13 @@
                   [rounded]="true"
                   [rounded]="true"
                 />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [rounded]="true" />
+                <p-button
+                  (onClick)="deleteBtn(user.id)"
+                  icon="pi pi-trash"
+                  severity="danger"
+                  [rounded]="true"
+                  [rounded]="true"
+                />
               </div>
             </td>
           </tr>

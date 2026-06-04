@@ -1,3 +1,4 @@
+import { filter } from 'rxjs';
 import { ChangeDetectionStrategy, Component, computed, OnInit, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
@@ -25,21 +26,24 @@ import { TableModule } from 'primeng/table';
 export default class ProfileComponent implements OnInit {
   public users = signal<User[] | []>([]);
   protected name = new FormControl('');
-
-  ngOnInit(): void {}
-
+  private currentId = signal<number | null>(null);
+  //================================================
+  ngOnInit(): void {
+    this.loadData();
+  }
+  //================================================
   private saveData(): void {
     localStorage.setItem('users', JSON.stringify(this.users()));
   }
-
+  //================================================
   private loadData(): void {
     const users = localStorage.getItem('users');
     if (users) {
-      this.users.update(loadUsers => [...loadUsers, JSON.parse(users)]);
+      this.users.set(JSON.parse(users));
       console.log(users);
     }
   }
-
+  //================================================
   private create() {
     const name = this.name.value?.trim();
 
@@ -63,7 +67,20 @@ export default class ProfileComponent implements OnInit {
     this.name.reset();
     this.saveData();
   }
-  protected edit(id: number) {}
+  //================================================
+  protected edit(id: number) {
+    this.currentId.set(id);
+    if (this.currentId() === id) {
+      alert(11111);
+      this;
+    }
+  }
+  //================================================
+  protected deleteBtn(id: number) {
+    this.users.update(currentUser => currentUser.filter((user: User) => user.id !== id));
+    this.saveData();
+  }
+  //================================================
   protected addUser() {
     this.create();
   }
