@@ -1,9 +1,4 @@
-@reference "tailwindcss";
 :host {
   display: block;
   width: 100%;
-}
-th,
-td {
-  @apply border border-slate-400 p-2;
 }

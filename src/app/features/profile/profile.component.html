@@ -1,32 +1,44 @@
-<section class="mx-auto w-3/6">
-  <form class="flex justify-center gap-3">
-    <p-iconField class="w-full">
-      <p-inputIcon styleClass="pi pi-search" />
-      <input type="text" [formControl]="todo" pInputText placeholder="Enter..." class="w-full" />
-    </p-iconField>
-    <p-button styleClass="px-4" (onClick)="handleSave()">+</p-button>
+<section class="mx-auto flex w-3/6 flex-col gap-5">
+  <form class="flex gap-3">
+    <p-iconfield class="w-full">
+      <p-inputicon styleClass="pi pi-search" />
+      <input [formControl]="name" type="text" pInputText placeholder="Enter..." class="w-full" />
+    </p-iconfield>
+    <p-button styleClass="px-4" (onClick)="addUser()"> + </p-button>
   </form>
-  <ul>
-    @for (user of users(); track user.id) {
-      <li class="mt-3 flex items-center justify-between border-b border-b-blue-400 pb-1">
-        <span>{{ user.name }}</span>
-        <div class="flex gap-1">
-          <p-button
-            icon="pi pi-pencil"
-            severity="success"
-            [rounded]="true"
-            (onClick)="editBnt(user.id)"
-          />
-          <p-button
-            icon="pi pi-times"
-            severity="danger"
-            [rounded]="true"
-            (onClick)="deleteBtn(user.id)"
-          />
-        </div>
-      </li>
-    } @empty {
-      <li class="py-10 text-center">No data</li>
-    }
-  </ul>
+  @if (users().length > 0) {
+    <div>
+      <p-table [value]="users()" stripedRows>
+        <ng-template #header>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-user>
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <div class="flex justify-end gap-2">
+                <p-button
+                  (onClick)="edit(user.id)"
+                  icon="pi pi-pencil"
+                  severity="success"
+                  [rounded]="true"
+                  [rounded]="true"
+                />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [rounded]="true" />
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  } @else {
+    <div class="py-4 text-center font-semibold">No data</div>
+  }
 </section>
