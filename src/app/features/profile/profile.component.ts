@@ -1,11 +1,13 @@
 import { filter } from 'rxjs';
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { User } from './common/models';
+import { formatCurrency } from '@angular/common';
+import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-profile',
   imports: [
@@ -16,93 +18,92 @@ import { User } from './common/models';
     IconField,
     InputIcon,
     InputTextModule,
+    TableModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ProfileComponent {
-  public todo = new FormControl('');
+  public username = new FormControl('');
   public users = signal<User[] | []>([]);
+  protected isEdit = signal<boolean>(false);
   protected currentId = signal<number | null>(null);
-  protected isEditing = signal<boolean>(false);
-
+  //=======================================================
   ngOnInit() {
     this.loadData();
   }
-
-  private create() {
-    const name = this.todo.value?.trim();
-    if (!name) return alert('Input is required..!');
-
-    const id = computed((): number => {
-      const userList: User[] = this.users();
-
-      if (userList.length > 0) {
-        return Math.max(...userList.map(user => user.id)) + 1;
-      }
-      return 1;
-    });
-
-    const newUser: User = {
-      id: id(),
-      name: name,
-      email: `${name}@gmail.com`,
-    };
-
-    this.users.update(currentUser => [...currentUser, newUser]);
-    this.todo.reset();
-  }
+  //=======================================================
   private saveData(): void {
     localStorage.setItem('users', JSON.stringify(this.users()));
   }
+  //=======================================================
   private loadData(): void {
     const savedUsers = localStorage.getItem('users');
+
     if (savedUsers) {
-      try {
-        const parseUsers = JSON.parse(savedUsers);
-        this.users.set(parseUsers);
-      } catch (error) {
-        console.error('Xatolik..!', error);
-      }
+      this.users.set(JSON.parse(savedUsers));
     }
   }
+  //=======================================================
+  private create() {
+    const name = this.username.value?.trim();
 
-  protected deleteBtn(id: number) {
-    this.users.update(currentUser => currentUser.filter(user => user.id !== id));
-  }
-  protected editBnt(id: number) {
-    const user = this.users().find(user => user.id === id);
-    if (user) {
-      this.todo.setValue(user.name);
-    }
-
-    this.currentId.set(id);
-    this.isEditing.set(true);
-  }
-
-  protected handleSave() {
-    const name = this.todo.value?.trim();
     if (!name) return alert('Name is required..!');
-    const idToEdit = this.currentId();
 
-    if (idToEdit && this.isEditing() !== null) {
+    const userList: User[] = this.users();
+
+    const id: number = userList.length > 0 ? Math.max(...userList.map(user => user.id)) + 1 : 1;
+
+    const newUser: User = {
+      id: id,
+      name: name,
+      email: `${name.toLowerCase()}@mail.com`,
+    };
+    this.users.update(currentUser => [...currentUser, newUser]);
+    this.saveData();
+  }
+  //=======================================================
+  protected add(): void {
+    this.handleSave();
+    this.username.reset();
+  }
+  //=======================================================
+  protected edit(id: number): void {
+    const userId = this.users().find(user => user.id === id);
+    const name = userId?.name;
+    if (name) {
+      this.username.setValue(name);
+    }
+    this.currentId.set(id);
+    this.isEdit.set(true);
+    if (!name) return alert('Name is required..!');
+  }
+
+  protected handleSave(): void {
+    const name = this.username.value?.trim();
+    if (!name) return alert('Name is requierd..!');
+
+    const editedId = this.currentId();
+    if (this.isEdit() && editedId !== null) {
       this.users.update((currentUser: User[]) =>
         currentUser.map((user: User) =>
-          user.id === idToEdit ? { ...user, name: name, email: `${name}@gmail.com` } : user
+          user.id === editedId
+            ? { ...user, name: name, email: `${name.toLowerCase()}@mail.com` }
+            : user
         )
       );
-      this.isEditing.set(false);
+      this.isEdit.set(false);
       this.currentId.set(null);
-      this.todo.reset();
+      this.username.reset();
       this.saveData();
     } else {
       this.create();
     }
   }
-
-  protected addTodo(): void {
-    this.create();
+  //=======================================================
+  protected delete(id: number): void {
+    this.users.update(currentUser => currentUser.filter(user => user.id !== id));
     this.saveData();
   }
 }
