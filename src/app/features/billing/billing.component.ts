@@ -9,21 +9,8 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Toast } from 'primeng/toast';
 import { Tag } from 'primeng/tag';
 import { DecimalPipe, NgClass } from '@angular/common';
-interface Billing {
-  id: number;
-  name: string;
-  companyName: string;
-  email: string;
-  vatNumber: string;
-}
-interface Transaction {
-  company: string;
-  date: string;
-  time: string;
-  amount: number | 'Pending';
-  type: 'debit' | 'credit';
-  status: 'Newest' | 'Yesterday';
-}
+import { Billing, Transaction } from './common/models/models';
+
 @Component({
   selector: 'app-billing',
   imports: [InputMask, FormsModule, Button, ConfirmDialog, Toast, Tag, NgClass, DecimalPipe],

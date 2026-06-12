@@ -7,7 +7,7 @@ import DashboardComponent from './features/dashboard/dashboard.component';
 import ProfileComponent from './features/profile/profile.component';
 import TablesComponent from './features/tables/tables.component';
 import { EditTableComponent } from './features/tables/edit-table/edit-table.component';
-import BillingEditComponent from './features/billing/billing-edit/billing-edit.component';
+import BillingEditComponent from './features/billing/common/components/billing-edit/billing-edit.component';
 
 export const routes: Routes = [
   {

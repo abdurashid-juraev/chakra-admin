@@ -1,12 +1,10 @@
-import { filter } from 'rxjs';
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { User } from './common/models';
-import { formatCurrency } from '@angular/common';
 import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-profile',
@@ -77,7 +75,7 @@ export default class ProfileComponent {
     }
     this.currentId.set(id);
     this.isEdit.set(true);
-    if (!name) return alert('Name is required..!');
+    if (!name) return alert('User not found..!');
   }
 
   protected handleSave(): void {
@@ -104,6 +102,12 @@ export default class ProfileComponent {
   //=======================================================
   protected delete(id: number): void {
     this.users.update(currentUser => currentUser.filter(user => user.id !== id));
+
     this.saveData();
+    if (this.currentId() === id) {
+      this.currentId.set(null);
+      this.isEdit.set(false);
+      this.username.reset();
+    }
   }
 }

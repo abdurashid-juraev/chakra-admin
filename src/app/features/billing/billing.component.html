@@ -50,7 +50,7 @@
               <div class="text-dark-text text-lg">{{ card.title }}</div>
 
               <div
-                class="text-medium-text relative mb-3 pb-4 text-sm after:absolute after:right-0 after:bottom-0 after:left-[15%] after:h-[1px] after:w-8/12 after:[background:linear-gradient(90deg,rgba(224,225,226,0)_0%,#E0E1E2_49.52%,rgba(224,225,226,0.15625)_99.04%)]"
+                class="text-medium-text relative mb-3 pb-4 text-sm after:absolute after:right-0 after:bottom-0 after:left-[15%] after:h-px after:w-8/12 after:[background:linear-gradient(90deg,rgba(224,225,226,0)_0%,#E0E1E2_49.52%,rgba(224,225,226,0.15625)_99.04%)]"
               >
                 {{ card.subtitle }}
               </div>
@@ -214,7 +214,7 @@
                   <div
                     class="flex h-10 w-10 items-center justify-center rounded-full"
                     [ngClass]="{
-                      '!border !border-red-500 text-red-500': transaction.type === 'debit',
+                      'border! border-red-500! text-red-500': transaction.type === 'debit',
                       'border border-green-500 text-green-500': transaction.type === 'credit',
                     }"
                   >
