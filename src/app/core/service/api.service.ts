@@ -3,13 +3,12 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from './../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly baseUrl = environment.apiUrl.replace(/\/$/, ''); // remove trailing slash
+  private readonly baseUrl = 'http/base/api'; // remove trailing slash
   private http = inject(HttpClient);
 
   private url(endpoint: string) {
