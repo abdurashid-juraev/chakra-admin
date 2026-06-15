@@ -8,6 +8,7 @@ import ProfileComponent from './features/profile/profile.component';
 import TablesComponent from './features/tables/tables.component';
 import { EditTableComponent } from './features/tables/edit-table/edit-table.component';
 import BillingEditComponent from './features/billing/common/components/billing-edit/billing-edit.component';
+import NewsComponent from './features/news/news.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +72,11 @@ export const routes: Routes = [
         path: 'tables/add',
         component: EditTableComponent,
         data: { breadcrumb: 'Pages / Tables / Add Author', title: 'Add Author' },
+      },
+      {
+        path: 'news',
+        component: NewsComponent,
+        data: { breadcrumb: 'Pages / News', title: 'News' },
       },
     ],
   },

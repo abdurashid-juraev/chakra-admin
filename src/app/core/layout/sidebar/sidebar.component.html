@@ -2,7 +2,7 @@
   <a [routerLink]="['/dashboard']" class="relative inline-block pb-6">
     <app-logo />
     <span
-      class="absolute bottom-0 left-1/2 h-[1px] w-[126%] translate-x-[-50%] bg-gradient-to-r from-transparent via-gray-300 to-transparent"
+      class="absolute bottom-0 left-1/2 h-px w-[126%] translate-x-[-50%] bg-linear-to-r from-transparent via-gray-300 to-transparent"
     ></span>
   </a>
   <nav class="mb-4">
@@ -114,7 +114,7 @@
       </li>
       <li>
         <a
-          href="#"
+          routerLink="news"
           class="group flex items-center gap-3 rounded-xl px-4 py-3 duration-150 hover:bg-white hover:shadow"
         >
           <app-raketa-svg
@@ -124,13 +124,13 @@
             color="currentColor"
             className="text-primary group-hover:text-white"
           ></app-raketa-svg>
-          <span class="text-medium-text group-hover:text-dark-text text-sm font-bold">Raketa</span>
+          <span class="text-medium-text group-hover:text-dark-text text-sm font-bold">News</span>
         </a>
       </li>
     </ul>
   </nav>
 
-  <article class="bg-primary q-card w-[230px] rounded-2xl p-4">
+  <article class="bg-primary q-card w-57.5 rounded-2xl p-4">
     <div class="mb-5.5 inline-grid h-9 w-9 place-items-center rounded-xl bg-white">
       <img src="/images/svg/question-icon.svg" alt="" />
     </div>
