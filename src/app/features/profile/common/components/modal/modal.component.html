@@ -1,0 +1,18 @@
+<div>
+  <br />
+  <br />
+  <button class="bg-blue-600 px-4 py-2 text-white">Open dialog</button>
+  <dialog class="">
+    <p>This dialog was opened using an invoker command.</p>
+    <div>
+      <div class="modal-header">
+        <ng-content />
+      </div>
+      <div class="modal-content"></div>
+      <div class="modal-footer">
+        <ng-content />
+      </div>
+    </div>
+    <button>Close</button>
+  </dialog>
+</div>

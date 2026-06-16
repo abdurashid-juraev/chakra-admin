@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-table',
-  standalone: true,
   templateUrl: './table.html',
   imports: [],
   styles: ``,
 })
-export class MyTableComponent {}
+export class MyTableComponent {
+  public columns = signal<string[] | []>([]);
+
+  //crudCols
+}
