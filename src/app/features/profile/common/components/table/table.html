@@ -1,7 +1,15 @@
 <table>
   <thead>
-    <tr>
-      <th></th>
-    </tr>
+    <ng-container [ngTemplateOutlet]="theadTemplate"></ng-container>
   </thead>
+  <tbody>
+    @for(item of value(); track $index){
+    <tr>
+      <ng-container
+        [ngTemplateOutlet]="tbodyTemplate"
+        [ngTemplateOutletContext]="{$implicit:item}"
+      ></ng-container>
+    </tr>
+    }
+  </tbody>
 </table>
